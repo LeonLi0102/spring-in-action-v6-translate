@@ -3,7 +3,7 @@
 Spring 实战（第 6版）预计将于 2021 年 12 月出版。现在的翻译基于 Manning 出版社的 MEAP 版本。
 ![](cn-translate/assets/00-Walls-Spring-6ed-MEAP-HI.png)
 
-地址：https://www.manning.com/books/spring-in-action-sixth-edition。
+地址：https://www.manning.com/books/spring-in-action-sixth-edition
 
 LiveBook: https://livebook.manning.com/book/spring-in-action-sixth-edition/welcome/v-7/6
 
