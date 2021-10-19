@@ -36,8 +36,8 @@ LiveBook: https://livebook.manning.com/book/spring-in-action-sixth-edition/welco
 | 9 - Sending message asynchronously | 未开始 |
 | 10 - Integrating Spring | 未开始 |
 | 11 - Introducing Reactor | 未开始 |
-| 12 - Developing reactive APIs | 未开始 |
-| 13 - Persisting data reactively | **进行中** |
+| 12 - Developing reactive APIs | **进行中** |
+| 13 - Persisting data reactively | **已完成** |
 | 14 - Working with RSocket |  **已完成** |
 | 15 - Working with Spring Boot Actuator | **已完成** |
 | 16 - Administering Spring | **已完成** |
