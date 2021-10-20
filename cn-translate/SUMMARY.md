@@ -23,7 +23,25 @@
         * [1.4.7 Spring Native](Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.7-Spring-Native.md)
     * [1.5 小结](Chapter-01/1.5-Summary.md)
 
------
+------
+
+* [第 10 章 集成 Spring](Chapter-10/Introduction.md)
+    * [10.1 声明简单的集成流](Chapter-10/10.1-Declaring-a-simple-integration-flow/Introduction.md)
+        * [10.1.1 使用 XML 定义集成流](Chapter-10/10.1-Declaring-a-simple-integration-flow/10.1.1-Defining-integration-flows-with-XML.md)
+        * [10.1.2 在 Java 中配置集成流](Chapter-10/10.1-Declaring-a-simple-integration-flow/10.1.2-Configuring-integration-flows-in-Java.md)
+        * [10.1.3 使用 Spring Integration 的 DSL 配置](Chapter-10/10.1-Declaring-a-simple-integration-flow/10.1.3-Using-Spring-Integration’s-DSL-configuration.md)
+    * [10.2 探索 Spring Integration](Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/Introduction.md)
+        * [10.2.1 消息通道](Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.1-Message-channels.md)
+        * [10.2.2 过滤器](Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.2-Filters.md)
+        * [10.2.3 转换器](Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.3-Transformers.md)
+        * [10.2.4 路由](Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.4-Routers.md)
+        * [10.2.5 分割器](Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.5-Splitters.md)
+        * [10.2.6 服务激活器](Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.6-Service-activators.md)
+        * [10.2.7 网关](Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.7-Gateways.md)
+        * [10.2.8 通道适配器](Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.8-Channel-adapters.md)
+        * [10.2.9 端点模块](Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.9-Endpoint-modules.md)
+    * [10.3 创建 Email 集成流](Chapter-10/10.3-Creating-an-email-integration-flow.md)
+    * [10.4 总结](Chapter-10/10.4-Summary.md)
 * [第 11 章 Reactor 介绍](Chapter-11/Introduction.md)
     * [11.1 理解响应式编程](Chapter-11/11.1-Understanding-reactive-programming/Introduction.md)
         * [11.1.1 定义响应式流](Chapter-11/11.1-Understanding-reactive-programming/11.1.1-Defining-Reactive-Streams.md)
@@ -36,8 +54,6 @@
         * [11.3.3 转换和过滤响应式流](Chapter-11/11.3-Applying-common-reactive-operations/11.3.3-Transforming-and-filtering-reactive-streams.md)
         * [11.3.4 对响应类型执行逻辑操作](Chapter-11/11.3-Applying-common-reactive-operations/11.3.4-Performing-logic-operations-on-reactive-types.md)
     * [11.4 总结](Chapter-11/11.4-Summary.md)
-
-
 * [第 12 章 开发响应式 API](Chapter-12/Introduction.md)
     * [12.1 使用 Spring WebFlux](Chapter-12/12.1-Working-with-Spring-WebFlux/Introduction.md)
         * [12.1.1 Spring WebFlux 介绍](Chapter-12/12.1-Working-with-Spring-WebFlux/12.1.1-Introducing-Spring-WebFlux.md)
