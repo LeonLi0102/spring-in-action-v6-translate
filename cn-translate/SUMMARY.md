@@ -23,8 +23,21 @@
         * [1.4.7 Spring Native](Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.7-Spring-Native.md)
     * [1.5 小结](Chapter-01/1.5-Summary.md)
 
-------
-
+-----
+* [第 9 章 发送异步消息](Chapter-09/Introduction.md)
+    * [9.1 使用 JMS 发送消息](Chapter-09/9.1-Sending-messages-with-JMS/Introduction.md)
+        * [9.1.1 设置 JMS](Chapter-09/9.1-Sending-messages-with-JMS/9.1.1-Setting-up-JMS.md)
+        * [9.1.2 使用 JmsTemplate 发送消息](Chapter-09/9.1-Sending-messages-with-JMS/9.1.2-Sending-messages-with-JmsTemplate.md)
+        * [9.1.3 接收 JMS 消息](Chapter-09/9.1-Sending-messages-with-JMS/9.1.3-Receiving-JMS-messages.md)
+    * [9.2 使用 RabbitMQ 和 AMQP](Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/Introduction.md)
+        * [9.2.1 添加 RabbitMQ 到 Spring 中](Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/9.2.1-Adding-RabbitMQ-to-Spring.md)
+        * [9.2.2 使用 RabbitTemplate 发送消息](Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/9.2.2-Sending-messages-with-RabbitTemplate.md)
+        * [9.2.3 从 RabbitMQ 接收消息](Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/9.2.3-Receiving-message-from-RabbitMQ.md)
+    * [9.3 使用 Kafka 发送消息](Chapter-09/9.3-Messaging-with-Kafka/Introduction.md)
+        * [9.3.1 在 Spring 中设置 Kafka](Chapter-09/9.3-Messaging-with-Kafka/9.3.1-Setting-up-Spring-for-Kafka-messaging.md)
+        * [9.3.2 使用 KafkaTemplate 发送消息](Chapter-09/9.3-Messaging-with-Kafka/9.3.2-Sending-messages-with-KafkaTemplate.md)
+        * [9.3.3 编写 Kafka 监听器](Chapter-09/9.3-Messaging-with-Kafka/9.3.3-Writing-Kafka-listeners.md)
+    * [9.4 总结](Chapter-09/9.4-Summary.md)
 * [第 10 章 集成 Spring](Chapter-10/Introduction.md)
     * [10.1 声明简单的集成流](Chapter-10/10.1-Declaring-a-simple-integration-flow/Introduction.md)
         * [10.1.1 使用 XML 定义集成流](Chapter-10/10.1-Declaring-a-simple-integration-flow/10.1.1-Defining-integration-flows-with-XML.md)

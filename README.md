@@ -32,8 +32,8 @@ LiveBook: https://livebook.manning.com/book/spring-in-action-sixth-edition/welco
 | 5 - Securing Spring | 未开始 |
 | 6 - Working with configuration properties | 未开始 |
 | 7 - Creating REST services | 未开始 |
-| 8 - Securing REST | 未开始 |
-| 9 - Sending message asynchronously | **进行中** |
+| 8 - Securing REST | **进行中** |
+| 9 - Sending message asynchronously | **已完成** |
 | 10 - Integrating Spring | **已完成** |
 | 11 - Introducing Reactor | **已完成** |
 | 12 - Developing reactive APIs | **已完成** |

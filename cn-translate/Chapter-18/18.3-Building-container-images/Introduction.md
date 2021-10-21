@@ -71,7 +71,7 @@ $ docker run -p8080:8080 library/tacocloud:0.0.19-SNAPSHOT
 
 这将运行镜像并映射端口 8080（由嵌入式 Tomcat 或 Netty 进行侦听）到主机的端口 8080。
 
-镜像标记的默认格式为“docker.io/library/${project.artifactId}:${project.version}”，这就解释了为什么标记以“library”开头。如果你只在本地运行容器，这没什么问题。但您很可能希望将镜像推送到镜像注册中心，如 DockerHub，这将需要使用标签名称以引用镜像 Repository 的构建。
+镜像标记的默认格式为“docker.io/library/${project.artifactId}:${project.version}”，这就解释了为什么标记以“library”开头。如果您只在本地运行容器，这没什么问题。但您很可能希望将镜像推送到镜像注册中心，如 DockerHub，这将需要使用标签名称以引用镜像 Repository 的构建。
 
 例如，假设您的组织在 DockerHub 中的 Repository 名称为“tacocloud”。在这种情况下，您将希望映像名称为“tacocloud/tacocloud:0.0.19-SNAPSHOT”，要将“library”默认前缀替换为“tacocloud”。要做到这一点，只要生成镜像时指定生成属性。对于 Maven，您需指定镜像
 名称使用 spring-boot.build-image.imageName 这个 JVM 系统属性，如下所示：
