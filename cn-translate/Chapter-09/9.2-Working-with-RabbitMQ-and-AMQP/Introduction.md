@@ -22,8 +22,7 @@ RabbitMQ 可以说是 AMQP 最优秀的实现，它提供了比 JMS 更高级的
 
 使用哪种交换类型以及如何定义从交换到队列的绑定与 Spring 应用程序中消息的发送和接收方式关系不大。因此，我们将重点讨论如何编写使用 RabbitMQ 发送和接收消息的代码。
 
-> **注意**
->
-> 有关如何最好地将队列绑定到交换器的更详细讨论，请参见 Gavin Roy 的 _《RabbitMQ in Depth》_ （Manning, 2017），或由 Alvaro Videla 和 Jason J.W. Williams 合著的 _《RabbitMQ 实战》_ （Manning, 2012）。
+>**注意**
+>有关如何最好地将队列绑定到交换器的更详细讨论，请参见 Gavin Roy 的 _《RabbitMQ in Depth》_ （Manning, 2017），或由 Alvaro Videla 和 Jason J.W. Williams 合著的 _《RabbitMQ 实战》_ （Manning, 2012）。
 
 

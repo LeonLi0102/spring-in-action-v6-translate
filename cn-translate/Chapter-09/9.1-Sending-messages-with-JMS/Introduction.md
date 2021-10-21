@@ -4,7 +4,7 @@ JMS 是一个 Java 标准，它定义了一个用于使用消息代理的公共 
 
 Spring 通过称为 JmsTemplate 的基于模板的抽象来支持 JMS。使用 JmsTemplate，很容易从生产者端跨队列和主题发送消息，并在消费者端接收这些消息。Spring 还支持消息驱动 POJO 的概念：简单的 Java 对象以异步方式对队列或主题上到达的消息做出响应。
 
-我们将探讨 Spring 的 JMS 支持，包括 JmsTemplate 和消息驱动 POJO。我们的重点是 Spring 对 JMS 消息发送的支持，但是如果您想知道更多关于 JMS 的信息，可以阅读由 Bruce Snyder、Dejan Bosanac 和 Rob Davies 合著的《ActiveMQ 实战》一书（Manning 出版祷，2011）。
+我们将探讨 Spring 的 JMS 支持，包括 JmsTemplate 和消息驱动 POJO。我们的重点是 Spring 对 JMS 消息发送的支持，但是如果您想知道更多关于 JMS 的信息，可以阅读由 Bruce Snyder、Dejan Bosanac 和 Rob Davies 合著的《ActiveMQ 实战》一书（Manning 出版社，2011）。
 
 在可以发送和接收消息之前，需要一个消息代理，它可以在生产者和消费者之间传递这些消息。让我们通过在 Spring 中设置消息代理来开始对 Spring JMS 的探索。
 
