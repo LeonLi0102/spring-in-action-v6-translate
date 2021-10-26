@@ -25,14 +25,14 @@ LiveBook: https://livebook.manning.com/book/spring-in-action-sixth-edition/welco
 
 | 章节 | 完成度 |
 | :--- | :--- |
-| 1 - Getting started with Spring | 未开始 |
-| 2 - Developing web application | 未开始 |
-| 3 - Working with data | 未开始 |
+| 1 - Getting started with Spring | **已完成** |
+| 2 - Developing web application | **已完成** |
+| 3 - Working with data | **进行中** |
 | 4 - Working with non-relational data | 未开始 |
 | 5 - Securing Spring | 未开始 |
 | 6 - Working with configuration properties | 未开始 |
 | 7 - Creating REST services | 未开始 |
-| 8 - Securing REST | **进行中** |
+| 8 - Securing REST | 未开始 |
 | 9 - Sending message asynchronously | **已完成** |
 | 10 - Integrating Spring | **已完成** |
 | 11 - Introducing Reactor | **已完成** |
