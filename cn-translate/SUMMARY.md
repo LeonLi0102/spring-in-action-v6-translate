@@ -53,6 +53,17 @@
         * [3.3.3 声明 JPA Repository](Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/3.3.3-Declaring-JPA-repositories.md)
         * [3.3.4 自定义 Repository](Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/3.3.4-Customizing-repositories.md)
     * [3.4 总结](Chapter-03/3.4-Summary.md)
+* [第 4 章 处理非关系型数据](Chapter-04/Introduction.md)
+    * [4.1 使用 Cassandra Repository](Chapter-04/4.1-Working-with-Cassandra-repositories/Introduction.md)
+        * [4.1.1 启用 Spring Data Cassandra](Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.1-Enabling-Spring-Data-Cassandra.md)
+        * [4.1.2 理解 Cassandra 数据模型](Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.2-Understanding-Cassandra-data-modeling.md)
+        * [4.1.3 Cassandra 持久化实体映射](Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.3-Mapping-domain-types-for-Cassandra-persistence.md)
+        * [4.1.4 编写 Cassandra Repository](Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.4-Writing-Cassandra-repositories.md)
+    * [4.2 编写 MongoDB Repository](Chapter-04/4.2-Writing-MongoDB-repositories/Introduction.md)
+        * [4.2.1 启用 Spring Data MongonDB](Chapter-04/4.2-Writing-MongoDB-repositories/4.2.1-Enabling-Spring-Data-MongoDB.md)
+        * [4.2.2 MongoDB 持久化实体映射](Chapter-04/4.2-Writing-MongoDB-repositories/4.2.2-Mapping-domain-types-to-documents.md)
+        * [4.2.3 编写  MongoDB Repository 接口](Chapter-04/4.2-Writing-MongoDB-repositories/4.2.3-Writing-MongoDB-repository-interfaces.md)
+    * [4.3 总结](Chapter-04/4.3-Summary.md)
 
 -----
 * [第 9 章 发送异步消息](Chapter-09/Introduction.md)
