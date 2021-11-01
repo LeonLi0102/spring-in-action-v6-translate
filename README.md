@@ -29,9 +29,9 @@ LiveBook: https://livebook.manning.com/book/spring-in-action-sixth-edition/welco
 | 2 - Developing web application | **已完成** |
 | 3 - Working with data | **已完成** |
 | 4 - Working with non-relational data | **已完成** |
-| 5 - Securing Spring | **进行中** |
-| 6 - Working with configuration properties | 未开始 |
-| 7 - Creating REST services | 未开始 |
+| 5 - Securing Spring | **已完成** |
+| 6 - Working with configuration properties | **已完成** |
+| 7 - Creating REST services | **进行中** |
 | 8 - Securing REST | 未开始 |
 | 9 - Sending message asynchronously | **已完成** |
 | 10 - Integrating Spring | **已完成** |
