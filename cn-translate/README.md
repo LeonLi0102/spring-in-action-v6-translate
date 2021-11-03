@@ -1,5 +1,6 @@
 # Spring 实战 (第 6 版) MEAP
 
+
 ![](./assets/00-Walls-Spring-6ed-MEAP-HI.png)
 
 感谢您购买《Spring 实战》第六版 MEAP。从过去的五个版本中一路走来，现在我很高兴在这个版本中为您介绍最新最好的 Spring。无论您是刚接触，还是想了解一些 Spring 新特性，本书都是您学习 Spring 的宝贵资源。
@@ -11,7 +12,7 @@
 
 展望未来，我们将在第一部分中展开更多的有关数据持久化的内容，包括 Spring Data JDBC 和非关系数据库，如 MongoDB 和 Cassandra。在本书的第二部分中，我们将看到如何把应用程序与其他应用程序集成在一起。在第三部分，我们将深入研究 Spring 6 的响应式编程，并重新改造以前开发的组件，使其成为响应性式的。最后，第四部分我们将进一步讨论如何部署应用。
 
-我们希望每隔几周对这本书进行一次更新，无论是新加章节，还是对现有章节进行更新。当您阅读时，我邀请您访问 [liveBook 论坛](https://livebook.manning.com/#!/book/spring-in-action-sixth-edition/discussion)，您可以提问和留言。我会非常感激任何反馈，因为我在写这篇文章时，这些反馈对指导我的后续写作非常有价值。
+我们希望每隔几周对这本书进行一次更新，无论是新加章节，还是对现有章节进行修改。当您在阅读时，我邀请您访问 [liveBook 论坛](https://livebook.manning.com/#!/book/spring-in-action-sixth-edition/discussion)，您可以提问和留言。我非常重视您反馈，因为我在写这篇文章时，这些反馈对指导我的后续写作非常有价值。
 
 —Craig Walls
 
