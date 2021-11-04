@@ -6,7 +6,7 @@
 * 初始化一个 Spring 项目
 * 纵览 Spring
 
-尽管希腊哲学家赫拉克利特（Heraclitus）并非以软件开发人员而闻名，他在这个问题上似乎掌握得很好。有人引用他的话说：“唯一不变的就是变化。” 这句话体现了软件开发的实质。
+尽管希腊哲学家赫拉克利特（Heraclitus）并不是一个软件开发人员，但他似乎掌握了软件开发的精髓。因为有人曾引用他说过的话：“唯一不变的就是变化。” 这句话深刻体现了软件开发的本质。
 
 当 Rod Johnson 在书_《Expert One-on-One J2EE Design and Development》_（Wrox，2002，[http://mng.bz/oVjy](http://mng.bz/oVjy)）中介绍了 Spring 框架的最初形式后，我们今天开发应用程序的方式与一年前、五年前、十年前，甚至15年前都不一样了。
 
