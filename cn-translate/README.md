@@ -1,19 +1,23 @@
 # Spring 实战 (第 6 版) MEAP
 
-
 ![](./assets/00-Walls-Spring-6ed-MEAP-HI.png)
 
-感谢您购买《Spring 实战》第六版 MEAP。从过去的五个版本中一路走来，现在我很高兴在这个版本中为您介绍最新最好的 Spring。无论您是刚接触，还是想了解一些 Spring 新特性，本书都是您学习 Spring 的宝贵资源。
+Spring 实战（第 6 版）预计将于 2021 年 12 月出版。现在的翻译基于 Manning 出版社的 MEAP 版本。
 
-我试图让这个版本遵循一种亲身实践的风格，带领您完成应用程序构建的全过程。从初始化项目开始，一直到如何部署应用程序。
+地址：https://www.manning.com/books/spring-in-action-sixth-edition
 
-我们将发布开始的前五章内容。尽管还有一些尚未更新的内容，但这些章节与前一版没有太多不同。在第 1 章中，您将学习如何利用 Spring Initializr 和 Spring Boot 开始创建项目。在第 2 章中，我们将在此基础上，通过使用 Spring MVC 开发基于浏览器的功能。
-第 3 章，介绍使用 JDBC 和 Spring Data JPA 持久化数据。在第 4 章中，我们将看到使用 Spring Security 保护应用程序。最后，第 5 章将介绍如何使用配置属性来配置 Spring。
+LiveBook: https://livebook.manning.com/book/spring-in-action-sixth-edition/welcome/v-7/6
 
-展望未来，我们将在第一部分中展开更多的有关数据持久化的内容，包括 Spring Data JDBC 和非关系数据库，如 MongoDB 和 Cassandra。在本书的第二部分中，我们将看到如何把应用程序与其他应用程序集成在一起。在第三部分，我们将深入研究 Spring 6 的响应式编程，并重新改造以前开发的组件，使其成为响应性式的。最后，第四部分我们将进一步讨论如何部署应用。
+## 强烈推荐您购买此书
+## 尊重作者，保护版权
 
-我们希望每隔几周对这本书进行一次更新，无论是新加章节，还是对现有章节进行修改。当您在阅读时，我邀请您访问 [liveBook 论坛](https://livebook.manning.com/#!/book/spring-in-action-sixth-edition/discussion)，您可以提问和留言。我非常重视您反馈，因为我在写这篇文章时，这些反馈对指导我的后续写作非常有价值。
+第 6 版 GitHub地址：[https://github.com/LeonLi0102/spring-in-action-v6-translate.git](https://github.com/LeonLi0102/spring-in-action-v6-translate.git)
 
-—Craig Walls
+第 6 版 GitBook地址：[https://leonli0102.github.io/spring-in-action-v6/](https://leonli0102.github.io/spring-in-action-v6/)
 
 
+部分章节的翻译来自于第 5 版：
+
+第 5 版 Github 地址：https://github.com/PotoYang/spring-in-action-v5-translate
+
+第 5 版 GitBook 地址：https://potoyang.gitbook.io/spring-in-action-v5
