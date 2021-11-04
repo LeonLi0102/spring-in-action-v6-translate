@@ -113,7 +113,7 @@
     * [8.2 创建验证服务器](Chapter-08/8.2-Creating-an-Authorization-Server.md)
     * [8.3 利用资源服务器保护 API](Chapter-08/8.3-Securing-an-API-with-a-Resource-Server.md)
     * [8.4 开发客户端](Chapter-08/8.4-Developing-the-client.md)
-    * [8.5 小结](Chapter-08/7.5-Summary.md)
+    * [8.5 小结](Chapter-08/8.5-Summary.md)
 * [第 9 章 发送异步消息](Chapter-09/Introduction.md)
     * [9.1 使用 JMS 发送消息](Chapter-09/9.1-Sending-messages-with-JMS/Introduction.md)
         * [9.1.1 设置 JMS](Chapter-09/9.1-Sending-messages-with-JMS/9.1.1-Setting-up-JMS.md)

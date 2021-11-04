@@ -32,7 +32,7 @@ LiveBook: https://livebook.manning.com/book/spring-in-action-sixth-edition/welco
 | 5 - Securing Spring | **已完成** |
 | 6 - Working with configuration properties | **已完成** |
 | 7 - Creating REST services | **已完成** |
-| 8 - Securing REST | **进行中** |
+| 8 - Securing REST | **已完成** |
 | 9 - Sending message asynchronously | **已完成** |
 | 10 - Integrating Spring | **已完成** |
 | 11 - Introducing Reactor | **已完成** |
