@@ -1,4 +1,4 @@
-# 15.1 介绍 Actuator
+## 15.1 介绍 Actuator
 
 在机器设备中， Actuator 指驱动器，是负责控制和移动机器的机械装置。在 Spring Boot 应用程序中，Spring Boot Actuator 扮演同样的角色，使我们能够看到正在运行的应用程序的内部。在某种程度上，控制应用程序的行为。
 

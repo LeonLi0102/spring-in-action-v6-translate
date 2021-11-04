@@ -1,4 +1,4 @@
-# 18.3 构建容器镜像
+## 18.3 构建容器镜像
 
 在云端部署各种应用程序，Docker 已经成为了事实上的标准 [https://www.docker.com](https://www.docker.com/)。许多不同的云端环境，包括 AWS、Microsoft Azure、Google Cloud Platform 和 Pivotal Web Service（举几个例子），都接受用于部署应用程序的 Docker 容器。
 

@@ -1,4 +1,4 @@
-# 10.2 探索 Spring Integration
+## 10.2 探索 Spring Integration
 
 Spring Integration 涵盖了许多集成场景。试图将所有这些内容都包含在一个章节中，就像试图将大象装进一个信封一样。我将展示一张 Spring Integration 大象的照片，而不是对 Spring Integration 进行全面的讨论，以便让您了解它是如何工作的。然后，将创建一个向 Taco Cloud 应用程序添加功能的集成流。
 

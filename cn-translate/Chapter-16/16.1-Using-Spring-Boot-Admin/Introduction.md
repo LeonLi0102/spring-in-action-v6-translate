@@ -1,4 +1,4 @@
-# 16.1 使用 SpringBoot Admin
+## 16.1 使用 SpringBoot Admin
 
 使用 Actuator 端点的数据，构建一个易于查看的应用是不是有意义？开发这样的 web 应用是不是很困难？我被问过好多次这样的问题。我回应说，Actuator 端点只是一个 REST API，因此，这是可以做的。但为什么要自己做呢？codecentric AG （[https://www.codecentric.de/](https://www.codecentric.de/)），一家总部位于德国的软件和咨询公司，已经为您做了这项工作。
 

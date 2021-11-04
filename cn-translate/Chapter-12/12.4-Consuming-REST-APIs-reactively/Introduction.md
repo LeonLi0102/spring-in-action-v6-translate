@@ -1,4 +1,4 @@
-# 12.4 响应式消费 REST API
+## 12.4 响应式消费 REST API
 
 在第 8 章，您已经使用过 RestTemplate 通过客户端向 Taco Cloud API 发出请求。RestTemplate 是一个老组件了，引入自 Spring 3.0 版本。至今为止，我们使用它向应用程序发出过无数次请求。
 

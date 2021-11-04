@@ -1,4 +1,4 @@
-# 9.3 使用 Kafka 发送消息
+## 9.3 使用 Kafka 发送消息
 
 Apache Kafka 是我们在本章中研究的最新消息传递选项。乍一看，Kafka 是一个消息代理，就像 ActiveMQ、Artemis 或 Rabbit 一样。但是 Kafka 有一些独特的技巧。
 

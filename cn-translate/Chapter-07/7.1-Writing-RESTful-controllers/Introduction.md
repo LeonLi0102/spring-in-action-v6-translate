@@ -1,4 +1,4 @@
-# 7.1 编写 RESTful 控制器
+## 7.1 编写 RESTful 控制器
 
 简而言之，REST API 与网站没有太大区别。两者都涉及对 HTTP 请求的响应。但关键的区别在于，网站是用 HTML 响应这些请求，而REST API通常以面向数据的格式（如 JSON 或 XML）响应。
 

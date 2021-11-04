@@ -1,4 +1,4 @@
-# 12.5 保护响应式 web API
+## 12.5 保护响应式 web API
 
 自从 `Spring Security`（之前广为人知的名称是`Acegi Security`）以来，web 安全模型都是围绕 servlet 过滤器构建的。毕竟，这是很明显的逻辑。为了确保请求者拥有适当的权限，拦截基于 servlet 的请求，显而易见的就是选择使用 servlet 过滤器。但是 `Spring WebFlux` 给这种方法带来了一个难题。
 

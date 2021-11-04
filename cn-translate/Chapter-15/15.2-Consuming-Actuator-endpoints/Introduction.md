@@ -1,4 +1,4 @@
-# 15.2 使用 Actuator 端点
+## 15.2 使用 Actuator 端点
 
 Actuator 可以通过表 15.1 中列出的 HTTP 端点，提供一个有关正在运行的应用程序的，有趣和有用的名副其实的宝库。 作为 HTTP 端点，它们可以像任何 REST API 一样使用，使用您熟悉的任何 HTTP 客户端，包括 Spring 的 RestTemplate 和 WebClient，来自基于浏览器的 JavaScript 应用程序，或者简单地使用 curl 命令行客户端。
 

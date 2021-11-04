@@ -1,4 +1,4 @@
-# 3.2 使用 Spring Data JDBC
+### 3.2 使用 Spring Data JDBC
 
 Spring Data 项目是一个相当大的一揽子项目，由几个子项目组成，其中大多数是聚焦在对各种不同数据库类型进行持久化。一些最流行的 Spring Data 项目包括：
 

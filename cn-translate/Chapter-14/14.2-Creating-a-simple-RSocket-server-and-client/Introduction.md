@@ -1,4 +1,4 @@
-# 14.2 创建一个简单的 RSocket 服务端和客户端
+## 14.2 创建一个简单的 RSocket 服务端和客户端
 
 Spring 为 RSocket 的消息传递提供了非常好的支持，包括所有四种通信方式模型。要开始使用 RSocket，您需要将 Spring Boot RSocket starter 添加到项目构建中。在 Maven 的 POM 文件中，RSocket starter 依赖项如下所示：
 
