@@ -2,7 +2,7 @@
 
 ![](./assets/00-Walls-Spring-6ed-MEAP-HI.png)
 
-Spring 实战（第 6 版）预计将于 2021 年 12 月出版。现在的翻译基于 Manning 出版社的 MEAP 版本。
+Spring 实战（第 6 版）预计将于 2022 年 2 月出版。现在的翻译基于 Manning 出版社的 MEAP 版本。
 
 地址：https://www.manning.com/books/spring-in-action-sixth-edition
 
@@ -21,3 +21,6 @@ LiveBook: https://livebook.manning.com/book/spring-in-action-sixth-edition/welco
 第 5 版 Github 地址：https://github.com/PotoYang/spring-in-action-v5-translate
 
 第 5 版 GitBook 地址：https://potoyang.gitbook.io/spring-in-action-v5
+
+###  另一本书《云原生 Spring 实战》翻译进行中，欢迎参与。
+地址：[https://github.com/LeonLi0102/cloud-native-spring-in-action-translate](https://github.com/LeonLi0102/cloud-native-spring-in-action-translate)
