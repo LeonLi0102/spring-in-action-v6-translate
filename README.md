@@ -1,5 +1,8 @@
 # Spring 实战 (第 6 版)
 
+# 收到人民邮电出版社编辑邮件，要求7个工作日内关闭本项目，停止侵权行为。
+# 本项目将于2022-01-28正式关闭
+
 Spring 实战（第 6版）预计将于 2022 年 2 月出版。现在的翻译基于 Manning 出版社的 MEAP 版本。
 ![](cn-translate/assets/00-Walls-Spring-6ed-MEAP-HI.png)
 
