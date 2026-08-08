@@ -73,6 +73,10 @@ spring-in-action-v6-translate/
 
 共修改 **36 个文件**，涵盖全部 18 章。
 
+## 在线阅读
+
+**GitBook：** https://leonli0102.github.io/spring-in-action-v6/
+
 ## 相关项目
 
 - 《云原生 Spring 实战》翻译：https://github.com/LeonLi0102/cloud-native-spring-in-action-translate
