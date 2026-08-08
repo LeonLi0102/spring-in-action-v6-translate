@@ -1,56 +1,86 @@
-# Spring 实战 (第 6 版)
+# Spring 实战 (第 6 版) 中文翻译
 
-# 收到人民邮电出版社编辑邮件，要求7个工作日内关闭本项目，停止侵权行为。
-# 本项目将于2022-01-28正式关闭
+> ⚠️ **项目已完结，不再更新**
 
-Spring 实战（第 6版）预计将于 2022 年 2 月出版。现在的翻译基于 Manning 出版社的 MEAP 版本。
-![](cn-translate/assets/00-Walls-Spring-6ed-MEAP-HI.png)
+本项目是《Spring in Action (6th Edition)》的社区中文翻译，基于 Manning 出版社的 MEAP 版本。
 
-地址：https://www.manning.com/books/spring-in-action-sixth-edition
+**强烈推荐购买正版：** https://www.manning.com/books/spring-in-action-sixth-edition
 
-LiveBook: https://livebook.manning.com/book/spring-in-action-sixth-edition/welcome/v-7/6
+---
 
-## 强烈推荐您购买此书
-## 尊重作者，保护版权
+## 项目历程
 
-翻译说明：
-* spring-in-action-v6-source-code.zip 是第 6 版附带的程序代码
-* Spring_in_Action_Sixth_Edition_v7.pdf 是第 6 版最新的 MEAP
-* 中文翻译工作都在 cn-translate 目录下
-* 书中使用到的图片都放在 cn-translate/assets 目录下，使用时注意路径。
-* 翻译中所有涉及读者称谓的都用 **`您`**，不用 `你`。
-* 引用书中的代码时标识语言，如：` ```java `
-* 引用配置时指定类型，如： `  ```yaml  或 ```xml  `
-* 引用命令时指定类型，如`  ```bash  `
+- **2021年**：启动翻译，基于 MEAP v7 版本
+- **2022年1月**：收到人民邮电出版社编辑邮件，要求关闭项目（版权原因）
+- **2022年1月28日**：项目正式关闭
+- **2025年8月**：使用 AI 对全部 18 章翻译质量进行优化，修复错别字、重复字、术语不一致、生硬直译等问题
 
+## 翻译内容
 
-**进度：**
+共 **18 章**，全部完成：
 
-| 章节 | 完成度 |
+| 章节 | 中文标题 |
 | :--- | :--- |
-| 1 - Getting started with Spring | **已完成** |
-| 2 - Developing web application | **已完成** |
-| 3 - Working with data | **已完成** |
-| 4 - Working with non-relational data | **已完成** |
-| 5 - Securing Spring | **已完成** |
-| 6 - Working with configuration properties | **已完成** |
-| 7 - Creating REST services | **已完成** |
-| 8 - Securing REST | **已完成** |
-| 9 - Sending message asynchronously | **已完成** |
-| 10 - Integrating Spring | **已完成** |
-| 11 - Introducing Reactor | **已完成** |
-| 12 - Developing reactive APIs | **已完成** |
-| 13 - Persisting data reactively | **已完成** |
-| 14 - Working with RSocket |  **已完成** |
-| 15 - Working with Spring Boot Actuator | **已完成** |
-| 16 - Administering Spring | **已完成** |
-| 17 - Monitoring Spring with JMX | **已完成** |
-| 18 - Deploying Spring | **已完成** |
+| 1 | Spring 入门 |
+| 2 | 开发 Web 应用程序 |
+| 3 | 处理数据 |
+| 4 | 处理非关系型数据 |
+| 5 | Spring 安全 |
+| 6 | 使用配置属性 |
+| 7 | 创建 REST 服务 |
+| 8 | 保护 REST 服务 |
+| 9 | 发送异步消息 |
+| 10 | 集成 Spring |
+| 11 | Reactor 介绍 |
+| 12 | 开发响应式 API |
+| 13 | 响应式持久化数据 |
+| 14 | 使用 RSocket |
+| 15 | 使用 Spring Boot Actuator |
+| 16 | 管理 Spring |
+| 17 | 使用 JMX 监控 Spring |
+| 18 | 部署 Spring |
 
-GitHub地址：[https://github.com/LeonLi0102/spring-in-action-v6-translate.git](https://github.com/LeonLi0102/spring-in-action-v6-translate.git)
+## 项目结构
 
-GitBook地址：[https://leonli0102.github.io/spring-in-action-v6/](https://leonli0102.github.io/spring-in-action-v6/)
+```
+spring-in-action-v6-translate/
+├── cn-translate/                    # 中文翻译
+│   ├── Chapter-01/ ~ Chapter-18/    # 各章节
+│   ├── assets/                      # 书中图片
+│   ├── SUMMARY.md                   # 目录
+│   └── Welcome.md
+├── Spring_in_Action_Sixth_Edition_v7.pdf   # 原版 PDF
+└── spring-in-action-v6-source-code.zip     # 源代码
+```
 
-###  另一本书《云原生 Spring 实战》翻译进行中，欢迎参与。
-地址：[https://github.com/LeonLi0102/cloud-native-spring-in-action-translate](https://github.com/LeonLi0102/cloud-native-spring-in-action-translate)
+## 翻译规范
 
+- 读者称谓统一使用 **`您`**
+- 代码块标注语言类型（`java`、`yaml`、`xml`、`bash`）
+- 图片引用路径指向 `cn-translate/assets/`
+
+## AI 优化记录
+
+2025年8月，使用 AI 对全部翻译进行了质量优化，主要包括：
+
+| 优化类型 | 示例 |
+|---------|------|
+| 错别字修复 | Subcriber→Subscriber、Actuaotr→Actuator |
+| 重复字修复 | 的的、被被、在在 等 |
+| 术语统一 | 依赖项注入→依赖注入、你→您、web→Web |
+| 生硬直译 | Chapter-11 整章重写 |
+| 语序优化 | 多处调整为自然中文表达 |
+
+共修改 **36 个文件**，涵盖全部 18 章。
+
+## 相关项目
+
+- 《云原生 Spring 实战》翻译：https://github.com/LeonLi0102/cloud-native-spring-in-action-translate
+
+## 免责声明
+
+本翻译仅供学习交流使用，请支持正版图书。
+
+---
+
+*项目始于 2021，终于 2025。感谢所有贡献者。*
