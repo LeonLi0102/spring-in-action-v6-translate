@@ -1,6 +1,6 @@
 # Spring 实战 (第 6 版)
 
-![](./assets/00-Walls-Spring-6ed-MEAP-HI.png)
+![](./assets/cover.png)
 
 Spring 实战（第 6 版）已正式出版。本翻译基于 Manning 出版社的正式版本。
 
