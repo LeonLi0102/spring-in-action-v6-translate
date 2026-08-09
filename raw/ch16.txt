@@ -1,0 +1,329 @@
+424
+
+CHAPTER 16 Administering Spring
+
+16.1
+
+Using Spring Boot Admin
+I've been asked several times if it'd make sense and, if so, how hard it'd be to develop a web application that consumes Actuator endpoints and serves them up in an easy-toview UI. I respond that it's just a REST API, and, therefore, anything is possible. But why bother creating your own UI for the Actuator when the good folks at codecentric AG (https://www.codecentric.de/), a software and consulting company based in Germany, have already done the work for you?
+Spring Boot Admin is an administrative frontend web application that makes Actuator endpoints more consumable by humans. It's split into two primary components: the Spring Boot Admin server and its clients. The Admin server collects and displays Actuator data that's fed to it from one or more Spring Boot applications, which are identified as Spring Boot Admin clients, as illustrated in figure 16.1.
+
+Presents as a web UI Spring Boot Admin server
+
+Consumes Actuator endpoints Consumes Actuator endpoints Consumes Actuator endpoints
+
+Spring Boot application (Admin client)
+Spring Boot application (Admin client)
+Spring Boot application (Admin client)
+
+Figure 16.1 The Spring Boot Admin server consumes Actuator endpoints from one or more Spring Boot applications and presents the data in a web-based UI.
+
+You'll need to register each of your applications with the Spring Boot Admin server, including the Taco Cloud application. But first, you'll set up the Spring Boot Admin server to receive each client's Actuator information.
+16.1.1 Creating an Admin server
+To enable the Admin server, you'll first need to create a new Spring Boot application and add the Admin server dependency to the project's build. The Admin server is generally used as a standalone application, separate from any other application. Therefore, the easiest way to get started is to use the Spring Boot Initializr to create a new Spring Boot project and select the check box labeled Spring Boot Admin (Server). This results in the following dependency being included in the <dependencies> block:
+<dependency> <groupId>de.codecentric</groupId> <artifactId>spring-boot-admin-starter-server</artifactId>
+</dependency>
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Using Spring Boot Admin
+
+425
+
+Next, you'll need to enable the Admin server by annotating the main configuration class with @EnableAdminServer as shown here:
+package tacos.admin;
+import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication;
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
+@EnableAdminServer @SpringBootApplication public class AdminServerApplication {
+public static void main(String[] args) { SpringApplication.run(AdminServerApplication.class, args);
+}
+}
+Finally, because the Admin server won't be the only application running locally as it's developed, you should set it to listen in on a unique port, but one you can easily access (not port 0, for example). Here, I've chosen port 9090 as the port for the Spring Boot Admin server:
+server: port: 9090
+Now your Admin server is ready. If you were to fire it up at this point and navigate to http://localhost:9090 in your web browser, you'd see something like what's shown in figure 16.2.
+
+Figure 16.2 A newly created server displayed in the Spring Boot Admin UI. No applications are registered yet. Licensed to Zhigang Li <lzg14@qq.com>
+
+426
+
+CHAPTER 16 Administering Spring
+
+As you can see, the Spring Boot Admin shows that zero instances of zero applications are all up. But that's meaningless information when you consider the message below those counts that states No Applications Registered. For the Admin server to be useful, you'll need to register some applications with it.
+16.1.2 Registering Admin clients
+Because the Admin server is an application separate from other Spring Boot application(s) for which it presents Actuator data, you must somehow make the Admin server aware of the applications it should display. Two ways to register Spring Boot Admin clients with the Admin server follow:
+ Each application explicitly registers itself with the Admin server.  The Admin server discovers applications through the Eureka service registry.
+We'll focus on how to configure individual Boot applications as Spring Boot Admin clients so that they can register themselves with the Admin server. For more information about working with Eureka, see the Spring Cloud documentation at https://docs .spring.io/spring-cloud-netflix/docs/current/reference/html/ or Spring Microservices in Action, 2nd Edition, by John Carnell and Illary Huaylupo Sánchez.
+For a Spring Boot application to register itself as a client of the Admin server, you must include the Spring Boot Admin client starter in its build. You can easily add this dependency to your build by selecting the check box labeled Spring Boot Admin (Client) in the Initializr, or you can set the following <dependency> for a Maven-built Spring Boot application:
+<dependency> <groupId>de.codecentric</groupId> <artifactId>spring-boot-admin-starter-client</artifactId>
+</dependency>
+
+With the client-side library in place, you'll also need to configure the location of the Admin server so that the client can register itself. To do that, you'll set the spring .boot.admin.client.url property to the root URL of the Admin server like so:
+spring: boot: admin: client: url: http://localhost:9090
+
+Notice that the spring.application.name property is also set. This property is used by several Spring projects to identify an application. In this case, it is the name that will be given to the Admin server to use as a label anywhere information about the application appears in the Admin server.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Exploring the Admin server
+
+427
+
+Although there isn't much information about the Taco Cloud application shown in figure 16.3, it does show the application's uptime, whether the Spring Boot Maven plugin has the build-info goal configured (as we discussed in section 15.3.1), and the build version. Rest assured that you'll see plenty of other runtime details after you click the application in the Admin server.
+
+Figure 16.3 The Spring Boot Admin UI displays a single registered application.
+Now that you have the Taco Cloud application registered with the Admin server, let's see what the Admin server has to offer.
+16.2 Exploring the Admin server
+Once you've registered all of the Spring Boot applications as Admin server clients, the Admin server makes a wealth of information available for seeing what's going on inside each application, including the following:
+ General health and information  Any metrics published through Micrometer and the /metrics endpoint  Environment properties  Logging levels for packages and classes In fact, almost anything that the Actuator exposes can be viewed in the Admin server, albeit in a much more human-friendly format. This includes graphs and filters to help distill the information. The amount of information presented in the Admin server is far richer than the space we'll have in this chapter to cover it in detail. But let me use the rest of this section to share a few of the highlights of the Admin server.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+428
+
+CHAPTER 16 Administering Spring
+
+16.2.1 Viewing general application health and information
+As discussed in section 15, some of the most basic information provided by the Actuator is health and general application information via the /health and /info endpoints. The Admin server displays that information under the Details menu item as shown in figure 16.4.
+
+Figure 16.4 The Details screen of the Spring Boot Admin UI displays general health and information about an application.
+If you scroll past the Health and Info sections in the Details screen, you'll find useful statistics from the application's JVM, including graphs displaying memory, thread, and processor usage (see figure 16.5).
+The information displayed in the graphs, as well as the metrics under Processes and Garbage Collection Pauses, can provide useful insights into how your application uses JVM resources.
+16.2.2 Watching key metrics The information presented by the /metrics endpoint is perhaps the least humanreadable of all of the Actuator's endpoints. But the Admin server makes it easy for us mere mortals to consume the metrics produced in an application with its UI under the Metrics menu item.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Exploring the Admin server
+
+429
+
+Figure 16.5 As you scroll down on the Details screen, you can view additional JVM internal information, including processor, thread, and memory statistics.
+Initially, the Metrics screen doesn't display any metrics whatsoever. But the form at the top lets you set up one or more watches on any metrics you want to keep an eye on.
+In figure 16.6, I've set up two watches on metrics under the http.server.requests category. The first reports metrics anytime an HTTP GET request is received and the return status is 200 (OK). The second reports metrics for any request that results in an HTTP 404 (NOT FOUND) response.
+What's nice about these metrics (and, in fact, almost anything displayed in the Admin server) is that they show live data--they'll automatically update without the need to refresh the page.
+16.2.3 Examining environment properties The Actuator's /env endpoint returns all environment properties available to a Spring Boot application from all of its property sources. And although the JSON response from the endpoint isn't all that difficult to read, the Admin server presents it in a much more aesthetically pleasing form under the Environment menu item, shown in figure 16.7. Because there can be hundreds of properties, you can filter the list of available properties by either property name or value. Figure 16.7 shows properties filtered by those whose name and/or values contain the text "spring.". The Admin server also
+Licensed to Zhigang Li <lzg14@qq.com>
+
+430
+
+CHAPTER 16 Administering Spring
+
+Figure 16.6 On the Metrics screen, you can set up watches on any metrics published through the application's /metrics endpoint.
+
+Figure 16.7 The Environment screen displays environment properties and includes options to override and filter those values.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Securing the Admin server
+
+431
+
+allows you to set or override environment properties using the form under the Environment Manager header.
+16.2.4 Viewing and setting logging levels
+The Actuator's /loggers endpoint is helpful in understanding and overriding logging levels in a running application. The Admin server's Loggers screen adds an easy-to-use UI on top of the /loggers endpoint to make simple work of managing logging in an application. Figure 16.8 shows the list of loggers filtered by the name org.springframework.boot.
+
+Figure 16.8 The Loggers screen displays logging levels for packages and classes in the application and lets you override those levels.
+
+By default, the Admin server displays logging levels for all packages and classes. Those can be filtered by name (for classes only) and/or logging levels that are explicitly configured versus inherited from the root logger.
+
+16.3
+
+Securing the Admin server
+As we discussed in the previous chapter, the information exposed by the Actuator's endpoints isn't intended for general consumption. They contain information that exposes details about an application that only an application administrator should
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+432
+
+CHAPTER 16 Administering Spring
+
+see. Moreover, some of the endpoints allow changes that certainly shouldn't be exposed to just anyone.
+Just as security is important to the Actuator, it's also important to the Admin server. What's more, if the Actuator endpoints require authentication, then the Admin server needs to know the credentials to be able to access those endpoints. Let's see how to add a little security to the Admin server. We'll start by requiring authentication.
+16.3.1 Enabling login in the Admin server
+It's probably a good idea to add security to the Admin server because it's not secured by default. Because the Admin server is a Spring Boot application, you can secure it using Spring Security just like you would any other Spring Boot application. And just as you would with any application secured by Spring Security, you're free to decide which security scheme fits your needs best.
+At a minimum, you can add the Spring Boot security starter to the Admin server's build by checking the Security checkbox in the Initializr or by adding the following <dependency> to the project's pom.xml file:
+<dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+
+Then, so that you don't have to keep looking at the Admin server's logs for the randomly generated password, you can configure a simple administrative username and password in application.yml like so:
+spring: security: user: name: admin password: 53cr3t
+Now when the Admin server is loaded in the browser, you'll be prompted for a username and password with Spring Security's default login form. As in the code snippet, entering admin and 53cr3t will get you in.
+By default, Spring Security will enable CSRF on the Spring Boot Admin server, which will prevent client applications from registering with the Admin Server. Therefore, we will need a small bit of security configuration to disable CSRF, as shown here:
+package tacos.admin;
+import org.springframework.context.annotation.Bean; import org.springframework.security.config.annotation.web.reactive
+.EnableWebFluxSecurity; import org.springframework.security.config.web.server.ServerHttpSecurity; import org.springframework.security.web.server.SecurityWebFilterChain;
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Securing the Admin server
+
+433
+
+@EnableWebFluxSecurity public class SecurityConfig {
+@Bean public SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws
+Exception { return http .csrf() .disable() .build();
+}
+}
+Of course, this security configuration is extremely basic. I recommend that you consult chapter 5 for ways of configuring Spring Security for a richer security scheme around the Admin server.
+16.3.2 Authenticating with the Actuator
+In section 15.4, we discussed how to secure Actuator endpoints with HTTP Basic authentication. By doing so, you'll be able to keep out everyone who doesn't know the username and password you assigned to the Actuator endpoints. Unfortunately, that also means that the Admin server won't be able to consume Actuator endpoints unless it provides the username and password. But how will the Admin server get those credentials?
+If the application registers directly with the Admin server, then it can send its credentials to the server at registration time. You'll need to configure a few properties to enable that.
+The spring.boot.admin.client.username and spring.boot.admin.client.password properties specify the credentials that the Admin server can use to access an application's Actuator endpoints. The following snippet from application.yml shows how you might set those properties:
+spring: boot: admin: client: url: http://localhost:9090 username: admin password: 53cr3t
+The username and password properties must be set in each application that registers itself with the Admin server. The values given must match the username and password that's required in an HTTP Basic authentication header to the Actuator endpoints. In this example, they're set to admin and password, which are the credentials configured to access the Actuator endpoints.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+434
+
+CHAPTER 16 Administering Spring
+
+Summary
+ The Spring Boot Admin server consumes the Actuator endpoints from one or more Spring Boot applications and presents the data in a user-friendly web application.
+ Spring Boot applications can either register themselves as clients to the Admin server or the Admin server can discover them through Eureka.
+ Unlike the Actuator endpoints that capture a snapshot of an application's state, the Admin server is able to display a live view into the inner workings of an application.
+ The Admin server makes it easy to filter Actuator results and, in some cases, display data visually in a graph.
+ Because it's a Spring Boot application, the Admin server can be secured by any means available through Spring Security.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Monitoring Spring with JMX
+
+This chapter covers
+ Working with Actuator endpoint MBeans  Exposing Spring beans as MBeans  Publishing notifications
+
+For over a decade and a half, Java Management Extensions (JMX) has been the standard means of monitoring and managing Java applications. By exposing managed components known as MBeans (managed beans), an external JMX client can manage an application by invoking operations, inspecting properties, and monitoring events from MBeans.
+We'll start exploring Spring and JMX by looking at how Actuator endpoints are exposed as MBeans.
+
+17.1
+
+Working with Actuator MBeans
+By default, all Actuator endpoints are exposed as MBeans. But, starting with Spring Boot 2.2, JMX itself is disabled by default. To enable JMX in your Spring Boot application, you can set spring.jmx.enabled to true. In application.yml, this would look like this:
+
+435 Licensed to Zhigang Li <lzg14@qq.com>
+
+436
+
+CHAPTER 17 Monitoring Spring with JMX
+
+spring: jmx: enabled: true
+With that property set, Spring support for JMX is enabled. And with it, the Actuator endpoints are all exposed as MBeans. You can use any JMX client you wish to connect with Actuator endpoint MBeans. Using JConsole, which comes with the Java Development Kit, you'll find Actuator MBeans listed under the org.springframework.boot domain, as shown in figure 17.1.
+
+Figure 17.1 Actuator endpoints are automatically exposed as JMX MBeans.
+One thing that's nice about Actuator MBean endpoints is that they're all exposed by default. There's no need to explicitly include any of them, as you had to do with HTTP. You can, however, choose to narrow down the choices by setting management .endpoints.jmx.exposure.include and management.endpoints.jmx.exposure .exclude. For example, to limit Actuator endpoint MBeans to only the /health,
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Creating your own MBeans
+
+437
+
+/info, /bean, and /conditions endpoints, set management.endpoints.jmx.exposure .include like this:
+management: endpoints: jmx: exposure: include: health,info,bean,conditions
+
+Or, if there are only a few you want to exclude, you can set management.endpoints.jmx.exposure.exclude like this:
+management: endpoints: jmx: exposure: exclude: env,metrics
+
+Here, you use management.endpoints.jmx.exposure.exclude to exclude the /env and /metrics endpoints. All other Actuator endpoints will still be exposed as MBeans.
+To invoke the managed operations on one of the Actuator MBeans in JConsole, expand the endpoint MBean in the left-hand tree, and then select the desired operation under Operations.
+For example, if you'd like to inspect the logging levels for the tacos.ingredients package, expand the Loggers MBean and click on the operation named loggerLevels, as shown in figure 17.2. In the form at the top right, fill in the Name field with the package name (org.springframework.web, for example), and then click the loggerLevels button.
+After you click the loggerLevels button, a dialog box will pop up, showing you the response from the /loggers endpoint MBean. It might look a little like figure 17.3.
+Although the JConsole UI is a bit clumsy to work with, you should be able to get the hang of it and use it to explore any Actuator endpoint in much the same way. If you don't like JConsole, that's fine--there are plenty of other JMX clients to choose from.
+17.2 Creating your own MBeans
+Spring makes it easy to expose any bean you want as a JMX MBean. All you must do is annotate the bean class with @ManagedResource and then annotate any methods or properties with @ManagedOperation or @ManagedAttribute. Spring will take care of the rest.
+For example, suppose you want to provide an MBean that tracks how many tacos have been ordered through Taco Cloud. You can define a service bean that keeps a running count of how many tacos have been created. The following listing shows what such a service might look like.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+438
+
+CHAPTER 17 Monitoring Spring with JMX
+
+Figure 17.2 Using JConsole to display logging levels from a Spring Boot application
+Figure 17.3 Logging levels from the /loggers endpoint MBean displayed in JConsole
+Listing 17.1 An MBean that counts how many tacos have been created
+package tacos.jmx; import java.util.concurrent.atomic.AtomicLong; import org.springframework.data.rest.core.event.AbstractRepositoryEventListener; import org.springframework.jmx.export.annotation.ManagedAttribute; import org.springframework.jmx.export.annotation.ManagedOperation;
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Creating your own MBeans
+
+439
+
+import org.springframework.jmx.export.annotation.ManagedResource; import org.springframework.stereotype.Service; import tacos.Taco; import tacos.data.TacoRepository;
+@Service @ManagedResource public class TacoCounter
+extends AbstractRepositoryEventListener<Taco> {
+private AtomicLong counter; public TacoCounter(TacoRepository tacoRepo) {
+tacoRepo .count() .subscribe(initialCount -> { this.counter = new AtomicLong(initialCount); });
+}
+@Override protected void onAfterCreate(Taco entity) {
+counter.incrementAndGet(); }
+@ManagedAttribute public long getTacoCount() {
+return counter.get(); }
+@ManagedOperation public long increment(long delta) {
+return counter.addAndGet(delta); }
+}
+The TacoCounter class is annotated with @Service so that it will be picked up by component scanning and an instance will be registered as a bean in the Spring application context. But it's also annotated with @ManagedResource to indicate that this bean should also be an MBean. As an MBean, it will expose one attribute and one operation. The getTacoCount() method is annotated with @ManagedAttribute so that it will be exposed as an MBean attribute, whereas the increment() method is annotated with @ManagedOperation, exposing it as an MBean operation. Figure 17.4 shows how the TacoCounter MBean appears in JConsole.
+TacoCounter has another trick up its sleeve, although it has nothing to do with JMX. Because it extends AbstractRepositoryEventListener, it will be notified of any persistence events when a Taco is saved through TacoRepository. In this particular case, the onAfterCreate() method will be invoked anytime a new Taco object is created and saved, and it will increment the counter by one. But AbstractRepositoryEventListener also offers several methods for handling events both before and after objects are created, saved, or deleted.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+440
+
+CHAPTER 17 Monitoring Spring with JMX
+
+Figure 17.4 TacoCounter's operations and attributes as seen in JConsole
+
+Working with MBean operations and attributes is largely a pull operation. That is, even if the value of an MBean attribute changes, you won't know until you view the attribute through a JMX client. Let's turn the tables and see how you can push notifications from an MBean to a JMX client.
+
+17.3
+
+Sending notifications
+MBeans can push notifications to interested JMX clients with Spring's NotificationPublisher. NotificationPublisher has a single sendNotification() method that, when given a Notification object, publishes the notification to any JMX clients that have subscribed to the MBean.
+For an MBean to be able to publish notifications, it must implement the NotificationPublisherAware interface, which requires that a setNotificationPublisher() method be implemented. For example, suppose you want to publish a notification for every 100 tacos that are created. You can change the TacoCounter class so that it implements NotificationPublisherAware and uses the injected NotificationPublisher to send notifications for every 100 tacos that are created.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Sending notifications
+
+441
+
+The following listing shows the changes that must be made to TacoCounter to enable such notifications.
+Listing 17.2 Sending notifications for every 100 tacos
+package tacos.jmx;
+import java.util.concurrent.atomic.AtomicLong; import org.springframework.data.rest.core.event.AbstractRepositoryEventListener; import org.springframework.jmx.export.annotation.ManagedAttribute; import org.springframework.jmx.export.annotation.ManagedOperation; import org.springframework.jmx.export.annotation.ManagedResource; import org.springframework.stereotype.Service;
+import org.springframework.jmx.export.notification.NotificationPublisher; import org.springframework.jmx.export.notification.NotificationPublisherAware; import javax.management.Notification;
+import tacos.Taco; import tacos.data.TacoRepository;
+@Service @ManagedResource public class TacoCounter
+extends AbstractRepositoryEventListener<Taco> implements NotificationPublisherAware {
+
+private AtomicLong counter; private NotificationPublisher np;
+@Override public void setNotificationPublisher(NotificationPublisher np) {
+this.np = np; }
+...
+@ManagedOperation public long increment(long delta) {
+long before = counter.get(); long after = counter.addAndGet(delta); if ((after / 100) > (before / 100)) {
+Notification notification = new Notification( "taco.count", this, before, after + "th taco created!");
+np.sendNotification(notification); } return after; }
+}
+In the JMX client, you'll need to subscribe to the TacoCounter MBean to receive notifications. Then, as tacos are created, the client will receive notifications for each century count. Figure 17.5 shows how the notifications may appear in JConsole.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+442
+
+CHAPTER 17 Monitoring Spring with JMX
+
+Figure 17.5 JConsole, subscribed to the TacoCounter MBean, receives a notification for every 100 tacos that are created.
+Notifications are a great way for an application to actively send data and alerts to a monitoring client without requiring the client to poll managed attributes or invoke managed operations.
+Summary
+ Most Actuator endpoints are available as MBeans that can be consumed using any JMX client.
+ Spring automatically enables JMX for monitoring beans in the Spring application context.
+ Spring beans can be exposed as MBeans by annotating them with @ManagedResource. Their methods and properties can be exposed as managed operations and attributes by annotating the bean class with @ManagedOperation and @ManagedAttribute.
+ Spring beans can publish notifications to JMX clients using NotificationPublisher.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Deploying Spring
+This chapter covers
+ Building Spring applications as either WAR or JAR files
+ Building Spring applications as container images  Deploying Spring applications in Kubernetes
+Think of your favorite action movie. Now imagine going to see that movie in the theater and being taken on a thrilling audiovisual ride with high-speed chases, explosions, and battles, only to have it come to a sudden halt before the good guys take down the bad guys. Instead of seeing the movie's conflict resolved, when the theater lights come on, everyone is ushered out the door. Although the lead-up was exciting, it's the climax of the movie that's important. Without it, it's action for action's sake.
+Now imagine developing applications and putting a lot of effort and creativity into solving the business problem, but then never deploying the application for others to use and enjoy. Sure, most applications we write don't involve car chases or explosions (at least I hope not), but there's a certain rush you get along the way. Not every line of code you write is destined for production, but it'd be a big letdown if none of it ever was deployed.
+443
+Licensed to Zhigang Li <lzg14@qq.com>
+
+

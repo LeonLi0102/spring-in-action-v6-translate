@@ -1,0 +1,208 @@
+418
+
+CHAPTER 15 Working with Spring Boot Actuator
+
+return notes; }
+@WriteOperation public List<Note> addNote(String text) {
+notes.add(new Note(text)); return notes; }
+@DeleteOperation public List<Note> deleteNote(int index) {
+if (index < notes.size()) { notes.remove(index);
+} return notes; }
+class Note { private Date time = new Date(); private final String text;
+public Note(String text) { this.text = text;
+}
+public Date getTime() { return time;
+}
+public String getText() { return text;
+} } }
+This endpoint is a simple note-taking endpoint, wherein one can submit a note with a write operation, read the list of notes with a read operation, and remove a note with the delete operation. Admittedly, this endpoint isn't very useful as far as Actuator endpoints go. But when you consider that the out-of-the-box Actuator endpoints cover so much ground, it's difficult to come up with a practical example of a custom Actuator endpoint.
+At any rate, the NotesEndpoint class is annotated with @Component so that it will be picked up by Spring's component scanning and instantiated as a bean in the Spring application context. But more relevant to this discussion, it's also annotated with @Endpoint, making it an Actuator endpoint with an ID of notes. And it's enabled by default so that you won't need to explicitly enable it by including it in the management.web.endpoints.web.exposure.include configuration property.
+As you can see, NotesEndpoint offers one of each kind of operation:  The notes() method is annotated with @ReadOperation. When invoked, it will
+return a list of available notes. In HTTP terms, this means it will handle an HTTP GET request for /actuator/notes and respond with a JSON list of notes.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Customizing Actuator
+
+419
+
+ The addNote() method is annotated with @WriteOperation. When invoked, it will create a new note from the given text and add it to the list. In HTTP terms, it handles a POST request where the body of the request is a JSON object with a text property. It finishes by responding with the current state of the notes list.
+ The deleteNote() method is annotated with @DeleteOperation. When invoked, it will delete the note at the given index. In HTTP terms, this endpoint handles DELETE requests where the index is given as a request parameter.
+To see this in action, you can use curl to poke about with this new endpoint. First, add a couple of notes, using two separate POST requests, as shown here:
+$ curl localhost:8080/actuator/notes \ -d'{"text":"Bring home milk"}' \ -H"Content-type: application/json"
+[{"time":"2020-06-08T13:50:45.085+0000","text":"Bring home milk"}]
+$ curl localhost:8080/actuator/notes \ -d'{"text":"Take dry cleaning"}' \ -H"Content-type: application/json"
+[{"time":"2021-07-03T12:39:13.058+0000","text":"Bring home milk"}, {"time":"2021-07-03T12:39:16.012+0000","text":"Take dry cleaning"}]
+As you can see, each time a new note is posted, the endpoint responds with the newly appended list of notes. But if later you want to view the list of notes, you can do a simple GET request like so:
+$ curl localhost:8080/actuator/notes [{"time":"2021-07-03T12:39:13.058+0000","text":"Bring home milk"},
+{"time":"2021-07-03T12:39:16.012+0000","text":"Take dry cleaning"}]
+If you decide to remove one of the notes, a DELETE request with an index request parameter, shown next, should do the trick:
+$ curl localhost:8080/actuator/notes?index=1 -X DELETE [{"time":"2021-07-03T12:39:13.058+0000","text":"Bring home milk"}]
+It's important to note that although I've shown only how to interact with the endpoint using HTTP, it will also be exposed as an MBean that can be accessed using whatever JMX client you choose. But if you want to limit it to only exposing an HTTP endpoint, you can annotate the endpoint class with @WebEndpoint instead of @Endpoint as follows:
+@Component @WebEndpoint(id="notes", enableByDefault=true) public class NotesEndpoint {
+... }
+Likewise, if you prefer an MBean-only endpoint, annotate the class with @JmxEndpoint.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+420
+
+CHAPTER 15 Working with Spring Boot Actuator
+
+15.4
+
+Securing Actuator
+The information presented by Actuator is probably not something that you would want prying eyes to see. Moreover, because Actuator provides a few operations that let you change environment properties and logging levels, it's probably a good idea to secure Actuator so that only clients with proper access will be allowed to consume its endpoints.
+Even though it's important to secure Actuator, security is outside of Actuator's responsibilities. Instead, you'll need to use Spring Security to secure Actuator. And because Actuator endpoints are just paths in the application like any other path in the application, there's nothing unique about securing Actuator versus any other application path. Everything we discussed in chapter 5 applies when securing Actuator endpoints.
+Because all Actuator endpoints are gathered under a common base path of /actuator (or possibly some other base path if the management.endpoints.web.base-path property is set), it's easy to apply authorization rules to all Actuator endpoints across the board. For example, to require that a user have ROLE_ADMIN authority to invoke Actuator endpoints, you might override the configure() method of WebSecurityConfigurerAdapter like this:
+
+@Override protected void configure(HttpSecurity http) throws Exception {
+http .authorizeRequests() .antMatchers("/actuator/**").hasRole("ADMIN")
+
+.and()
+
+.httpBasic(); }
+
+This requires that all requests be from an authenticated user with ROLE_ADMIN authority. It also configures HTTP basic authentication so that client applications can submit encoded authentication information in their request Authorization headers.
+The only real problem with securing Actuator this way is that the path to the endpoints is hardcoded as /actuator/**. If this were to change because of a change to the management.endpoints.web.base-path property, it would no longer work. To help with this, Spring Boot also provides EndpointRequest--a request matcher class that makes this even easier and less dependent on a given String path. Using EndpointRequest, you can apply the same security requirements for Actuator endpoints without hardcoding the /actuator/** path, as shown here:
+
+@Override protected void configure(HttpSecurity http) throws Exception {
+http .requestMatcher(EndpointRequest.toAnyEndpoint()) .authorizeRequests()
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Summary
+
+421
+
+.anyRequest().hasRole("ADMIN") .and() .httpBasic(); }
+The EndpointRequest.toAnyEndpoint() method returns a request matcher that matches any Actuator endpoint. If you'd like to exclude some of the endpoints from the request matcher, you can call excluding(), specifying them by name as follows:
+@Override protected void configure(HttpSecurity http) throws Exception {
+http .requestMatcher( EndpointRequest.toAnyEndpoint() .excluding("health", "info")) .authorizeRequests() .anyRequest().hasRole("ADMIN")
+.and() .httpBasic();
+}
+On the other hand, should you wish to apply security to only a handful of Actuator endpoints, you can specify those endpoints by name by calling to() instead of toAnyEndpoint(), like this:
+@Override protected void configure(HttpSecurity http) throws Exception {
+http .requestMatcher(EndpointRequest.to( "beans", "threaddump", "loggers")) .authorizeRequests() .anyRequest().hasRole("ADMIN")
+.and() .httpBasic();
+}
+This limits Actuator security to only the /beans, /threaddump, and /loggers endpoints. All other Actuator endpoints are left wide open.
+Summary
+ Spring Boot Actuator provides several endpoints, both as HTTP and JMX MBeans, that let you peek into the inner workings of a Spring Boot application.
+ Most Actuator endpoints are disabled by default but can be selectively exposed by setting management.endpoints.web.exposure.include and management .endpoints.web.exposure.exclude.
+ Some endpoints, such as the /loggers and /env endpoints, allow for write operations to change a running application's configuration on the fly.
+ Details regarding an application's build and Git commit can be exposed in the /info endpoint.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+422
+
+CHAPTER 15 Working with Spring Boot Actuator
+
+ An application's health can be influenced by a custom health indicator, tracking the health of an externally integrated application.
+ Custom application metrics can be registered through Micrometer, which affords Spring Boot applications instant integration with several popular metrics engines such as Datadog, New Relic, and Prometheus.
+ Actuator web endpoints can be secured using Spring Security, much like any other endpoint in a Spring application.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Administering Spring
+This chapter covers
+ Setting up Spring Boot Admin  Registering client applications  Working with Actuator endpoints  Securing the Admin server
+A picture is worth a thousand words (or so they say), and for many application users, a user-friendly web application is worth a thousand API calls. Don't get me wrong, I'm a command-line junkie and a big fan of using curl and HTTPie to consume REST APIs. But sometimes, manually typing the command line to invoke a REST endpoint and then visually inspecting the results can be less efficient than simply clicking a link and reading the results in a web browser.
+In the previous chapter, we explored all of the HTTP endpoints exposed by the Spring Boot Actuator. As HTTP endpoints that return JSON responses, there's no limit to how those can be used. In this chapter, we'll see how to put a frontend user interface (UI) on top of the Actuator to make it easier to use, as well as capture live data that would be difficult to consume from Actuator directly.
+423
+Licensed to Zhigang Li <lzg14@qq.com>
+
+424
+
+CHAPTER 16 Administering Spring
+
+16.1
+
+Using Spring Boot Admin
+I've been asked several times if it'd make sense and, if so, how hard it'd be to develop a web application that consumes Actuator endpoints and serves them up in an easy-toview UI. I respond that it's just a REST API, and, therefore, anything is possible. But why bother creating your own UI for the Actuator when the good folks at codecentric AG (https://www.codecentric.de/), a software and consulting company based in Germany, have already done the work for you?
+Spring Boot Admin is an administrative frontend web application that makes Actuator endpoints more consumable by humans. It's split into two primary components: the Spring Boot Admin server and its clients. The Admin server collects and displays Actuator data that's fed to it from one or more Spring Boot applications, which are identified as Spring Boot Admin clients, as illustrated in figure 16.1.
+
+Presents as a web UI Spring Boot Admin server
+
+Consumes Actuator endpoints Consumes Actuator endpoints Consumes Actuator endpoints
+
+Spring Boot application (Admin client)
+Spring Boot application (Admin client)
+Spring Boot application (Admin client)
+
+Figure 16.1 The Spring Boot Admin server consumes Actuator endpoints from one or more Spring Boot applications and presents the data in a web-based UI.
+
+You'll need to register each of your applications with the Spring Boot Admin server, including the Taco Cloud application. But first, you'll set up the Spring Boot Admin server to receive each client's Actuator information.
+16.1.1 Creating an Admin server
+To enable the Admin server, you'll first need to create a new Spring Boot application and add the Admin server dependency to the project's build. The Admin server is generally used as a standalone application, separate from any other application. Therefore, the easiest way to get started is to use the Spring Boot Initializr to create a new Spring Boot project and select the check box labeled Spring Boot Admin (Server). This results in the following dependency being included in the <dependencies> block:
+<dependency> <groupId>de.codecentric</groupId> <artifactId>spring-boot-admin-starter-server</artifactId>
+</dependency>
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Using Spring Boot Admin
+
+425
+
+Next, you'll need to enable the Admin server by annotating the main configuration class with @EnableAdminServer as shown here:
+package tacos.admin;
+import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication;
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
+@EnableAdminServer @SpringBootApplication public class AdminServerApplication {
+public static void main(String[] args) { SpringApplication.run(AdminServerApplication.class, args);
+}
+}
+Finally, because the Admin server won't be the only application running locally as it's developed, you should set it to listen in on a unique port, but one you can easily access (not port 0, for example). Here, I've chosen port 9090 as the port for the Spring Boot Admin server:
+server: port: 9090
+Now your Admin server is ready. If you were to fire it up at this point and navigate to http://localhost:9090 in your web browser, you'd see something like what's shown in figure 16.2.
+
+Figure 16.2 A newly created server displayed in the Spring Boot Admin UI. No applications are registered yet. Licensed to Zhigang Li <lzg14@qq.com>
+
+426
+
+CHAPTER 16 Administering Spring
+
+As you can see, the Spring Boot Admin shows that zero instances of zero applications are all up. But that's meaningless information when you consider the message below those counts that states No Applications Registered. For the Admin server to be useful, you'll need to register some applications with it.
+16.1.2 Registering Admin clients
+Because the Admin server is an application separate from other Spring Boot application(s) for which it presents Actuator data, you must somehow make the Admin server aware of the applications it should display. Two ways to register Spring Boot Admin clients with the Admin server follow:
+ Each application explicitly registers itself with the Admin server.  The Admin server discovers applications through the Eureka service registry.
+We'll focus on how to configure individual Boot applications as Spring Boot Admin clients so that they can register themselves with the Admin server. For more information about working with Eureka, see the Spring Cloud documentation at https://docs .spring.io/spring-cloud-netflix/docs/current/reference/html/ or Spring Microservices in Action, 2nd Edition, by John Carnell and Illary Huaylupo Sánchez.
+For a Spring Boot application to register itself as a client of the Admin server, you must include the Spring Boot Admin client starter in its build. You can easily add this dependency to your build by selecting the check box labeled Spring Boot Admin (Client) in the Initializr, or you can set the following <dependency> for a Maven-built Spring Boot application:
+<dependency> <groupId>de.codecentric</groupId> <artifactId>spring-boot-admin-starter-client</artifactId>
+</dependency>
+
+With the client-side library in place, you'll also need to configure the location of the Admin server so that the client can register itself. To do that, you'll set the spring .boot.admin.client.url property to the root URL of the Admin server like so:
+spring: boot: admin: client: url: http://localhost:9090
+
+Notice that the spring.application.name property is also set. This property is used by several Spring projects to identify an application. In this case, it is the name that will be given to the Admin server to use as a label anywhere information about the application appears in the Admin server.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Exploring the Admin server
+
+427
+
+Although there isn't much information about the Taco Cloud application shown in figure 16.3, it does show the application's uptime, whether the Spring Boot Maven plugin has the build-info goal configured (as we discussed in section 15.3.1), and the build version. Rest assured that you'll see plenty of other runtime details after you click the application in the Admin server.
+
+Figure 16.3 The Spring Boot Admin UI displays a single registered application.
+Now that you have the Taco Cloud application registered with the Admin server, let's see what the Admin server has to offer.
+16.2 Exploring the Admin server
+Once you've registered all of the Spring Boot applications as Admin server clients, the Admin server makes a wealth of information available for seeing what's going on inside each application, including the following:
+ General health and information  Any metrics published through Micrometer and the /metrics endpoint  Environment properties  Logging levels for packages and classes In fact, almost anything that the Actuator exposes can be viewed in the Admin server, albeit in a much more human-friendly format. This includes graphs and filters to help distill the information. The amount of information presented in the Admin server is far richer than the space we'll have in this chapter to cover it in detail. But let me use the rest of this section to share a few of the highlights of the Admin server.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+428
+
+CHAPTER 16 Administering Spring
+
+16.2.1 Viewing general application health and information
+As discussed in section 15, some of the most basic information provided by the Actuator is health and general application information via the /health and /info endpoints. The Admin server displays that information under the Details menu item as shown in figure 16.4.
+
+Figure 16.4 The Details screen of the Spring Boot Admin UI displays general health and information about an application.
+If you scroll past the Health and Info sections in the Details screen, you'll find useful statistics from the application's JVM, including graphs displaying memory, thread, and processor usage (see figure 16.5).
+The information displayed in the graphs, as well as the metrics under Processes and Garbage Collection Pauses, can provide useful insights into how your application uses JVM resources.
+16.2.2 Watching key metrics The information presented by the /metrics endpoint is perhaps the least humanreadable of all of the Actuator's endpoints. But the Admin server makes it easy for us mere mortals to consume the metrics produced in an application with its UI under the Metrics menu item.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+

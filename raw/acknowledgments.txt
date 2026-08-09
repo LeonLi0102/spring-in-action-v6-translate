@@ -1,0 +1,20 @@
+acknowledgments
+One of the most amazing things that Spring and Spring Boot do is automatically provide all of the foundational plumbing for an application, leaving you as a developer to focus primarily on the logic that's unique to your application. Unfortunately, no such magic exists for writing a book. Or does it?
+At Manning, several people worked their magic to make sure that this book is the best it can possibly be. Many thanks in particular to my development editor, Jenny Stout, and to production editor, Deirdre Hiam, copy editor, Pamela Hunt, graphics editor, Jennifer Houle, and the entire production team for their wonderful work in making this book a reality.
+As the book was forming, we had several peer reviewers take an early look, give us feedback, and help make sure that the book stayed on target and covered the right stuff. For this, my thanks go to Al Pezewski, Alessandro Campeis, Becky Huett, Christian Kreutzer-Beck, Conor Redmond, David Paccoud, David Torrubia Iñigo, David Witherspoon German Gonzalez-Morris, Iain Campbell, Jon Guenther, Kevin Liao, Mark Dechamps, Michael Bright, Philippe Vialatte, Pierre-Michel Ansel, Tony Sweets, William Fly, and Zorodzayi Mukuya.
+I absolutely must give a shout out to everyone on the Spring engineering team. You consistently produce some of the most incredible stuff I've ever worked with, and I am proud to consider you my colleagues.
+Many thanks go to my fellow speakers on the No Fluff/Just Stuff tour. I continue to learn so much from every one of you. And many thanks to those of you who have
+xix
+Licensed to Zhigang Li <lzg14@qq.com>
+
+xx
+
+ACKNOWLEDGMENTS
+
+attended one of my sessions on the NFJS tour; although I'm the one at the front of the room, I often learn a lot from you, too.
+As I did in the previous edition, I'd like to thank the Phoenicians. You know what you did.
+Finally, to my beautiful wife, Raymie, the love of my life and my sweetest dream: thank you for your encouragement and for putting up with yet another book project. And to my sweet and wonderful girls, Maisy and Madi: I am so proud of you and of the amazing young ladies you are becoming. I love all of you more than you can possibly know or words can express.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+

@@ -1,0 +1,860 @@
+8
+
+CHAPTER 1 Getting started with Spring
+
+Once you select Spring Starter Project, a new project wizard dialog (figure 1.3) appears. The first page in the wizard asks you for some general project information, such as the project name, description, and other essential information. If you're familiar with the contents of a Maven pom.xml file, you'll recognize most of the fields as items that end up in a Maven build specification. For the Taco Cloud application, fill in the dialog as shown in figure 1.3, and then click Next.
+
+Figure 1.3 Specifying general project information for the Taco Cloud application Licensed to Zhigang Li <lzg14@qq.com>
+
+Initializing a Spring application
+
+9
+
+The next page in the wizard lets you select dependencies to add to your project (see figure 1.4). Notice that near the top of the dialog, you can select on which version of Spring Boot you want to base your project. This defaults to the most current version available. It's generally a good idea to leave it as is unless you need to target a different version.
+
+Figure 1.4 Choosing starter dependencies Licensed to Zhigang Li <lzg14@qq.com>
+
+10
+
+CHAPTER 1 Getting started with Spring
+
+As for the dependencies themselves, you can either expand the various sections and seek out the desired dependencies manually or search for them in the search box at the top of the Available list. For the Taco Cloud application, you'll start with the dependencies shown in figure 1.4.
+At this point, you can click Finish to generate the project and add it to your workspace. But if you're feeling slightly adventurous, click Next one more time to see the final page of the new starter project wizard, as shown in figure 1.5.
+
+Figure 1.5 Optionally specifying an alternate Initializr address Licensed to Zhigang Li <lzg14@qq.com>
+
+Initializing a Spring application
+
+11
+
+By default, the new project wizard makes a call to the Spring Initializr at http://start .spring.io to generate the project. Generally, there's no need to override this default, which is why you could have clicked Finish on the second page of the wizard. But if for some reason you're hosting your own clone of Initializr (perhaps a local copy on your own machine or a customized clone running inside your company firewall), then you'll want to change the Base Url field to point to your Initializr instance before clicking Finish.
+After you click Finish, the project is downloaded from the Initializr and loaded into your workspace. Wait a few moments for it to load and build, and then you'll be ready to start developing application functionality. But first, let's take a look at what the Initializr gave you.
+
+1.2.2
+
+Examining the Spring project structure
+After the project loads in the IDE, expand it to see what it contains. Figure 1.6 shows the expanded Taco Cloud project in Spring Tool Suite.
+
+Figure 1.6 The initial Spring project structure as shown in Spring Tool Suite
+You may recognize this as a typical Maven or Gradle project structure, where application source code is placed under src/main/java, test code is placed under src/test/java, and non-Java resources are placed under src/main/resources. Within that project structure, you'll want to take note of the following items:
+Licensed to Zhigang Li <lzg14@qq.com>
+
+12
+
+CHAPTER 1 Getting started with Spring
+
+ mvnw and mvnw.cmd--These are Maven wrapper scripts. You can use these scripts to build your project, even if you don't have Maven installed on your machine.
+ pom.xml--This is the Maven build specification. We'll look deeper into this in a moment.
+ TacoCloudApplication.java--This is the Spring Boot main class that bootstraps the project. We'll take a closer look at this class in a moment.
+ application.properties--This file is initially empty but offers a place where you can specify configuration properties. We'll tinker with this file a little in this chapter, but I'll postpone a detailed explanation of configuration properties to chapter 6.
+ static--This folder is where you can place any static content (images, stylesheets, JavaScript, and so forth) that you want to serve to the browser. It's initially empty.
+ templates--This folder is where you'll place template files that will be used to render content to the browser. It's initially empty, but you'll add a Thymeleaf template soon.
+ TacoCloudApplicationTests.java--This is a simple test class that ensures that the Spring application context loads successfully. You'll add more tests to the mix as you develop the application.
+As the Taco Cloud application grows, you'll fill in this barebones project structure with Java code, images, stylesheets, tests, and other collateral that will make your project more complete. But in the meantime, let's dig a little deeper into a few of the items that Spring Initializr provided.
+EXPLORING THE BUILD SPECIFICATION When you filled out the Initializr form, you specified that your project should be built with Maven. Therefore, the Spring Initializr gave you a pom.xml file already populated with the choices you made. The following listing shows the entire pom.xml file provided by the Initializr.
+
+Listing 1.1 The initial Maven build specification
+
+<?xml version="1.0" encoding="UTF-8"?><project
+
+xmlns="http://maven.apache.org/POM/4.0.0"
+
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+
+https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<modelVersion>4.0.0</modelVersion>
+
+<parent>
+
+<groupId>org.springframework.boot</groupId>
+
+<artifactId>spring-boot-starter-parent</artifactId>
+
+<version>2.5.3</version> <relativePath /> </parent>
+
+Spring Boot version
+
+<groupId>sia</groupId>
+
+<artifactId>taco-cloud</artifactId>
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Initializing a Spring application
+
+13
+
+<version>0.0.1-SNAPSHOT</version> <name>taco-cloud</name> <description>Taco Cloud Example</description>
+
+<properties> <java.version>11</java.version>
+</properties>
+
+<dependencies> <dependency>
+
+Starter dependencies
+
+<groupId>org.springframework.boot</groupId>
+
+<artifactId>spring-boot-starter-thymeleaf</artifactId>
+
+</dependency>
+
+<dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+<dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> <scope>runtime</scope> <optional>true</optional>
+</dependency>
+
+<dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-test</artifactId> <scope>test</scope> <exclusions> <exclusion> <groupId>org.junit.vintage</groupId> <artifactId>junit-vintage-engine</artifactId> </exclusion> </exclusions>
+</dependency>
+
+</dependencies>
+
+<build> <plugins> <plugin>
+
+Spring Boot plugin
+
+<groupId>org.springframework.boot</groupId>
+
+<artifactId>spring-boot-maven-plugin</artifactId>
+
+</plugin>
+
+</plugins>
+
+</build>
+
+<repositories> <repository> <id>spring-milestones</id> <name>Spring Milestones</name> <url>https://repo.spring.io/milestone</url> </repository>
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+14
+
+CHAPTER 1 Getting started with Spring
+
+</repositories> <pluginRepositories>
+<pluginRepository> <id>spring-milestones</id> <name>Spring Milestones</name> <url>https://repo.spring.io/milestone</url>
+</pluginRepository> </pluginRepositories>
+</project>
+The first thing to take note of is the <parent> element and, more specifically, its <version> child. This specifies that your project has spring-boot-starter-parent as its parent POM. Among other things, this parent POM provides dependency management for several libraries commonly used in Spring projects. For those libraries covered by the parent POM, you won't have to specify a version, because it's inherited from the parent. The version, 2.5.6, indicates that you're using Spring Boot 2.5.6 and, thus, will inherit dependency management as defined by that version of Spring Boot. Among other things, Spring Boot's dependency management for version 2.5.6 specifies that the underlying version of the core Spring Framework will be 5.3.12.
+While we're on the subject of dependencies, note that there are four dependencies declared under the <dependencies> element. The first three should look somewhat familiar to you. They correspond directly to the Spring Web, Thymeleaf, and Spring Boot DevTools dependencies that you selected before clicking the Finish button in the Spring Tool Suite new project wizard. The other dependency is one that provides a lot of helpful testing capabilities. You didn't have to check a box for it to be included because the Spring Initializr assumes (hopefully, correctly) that you'll be writing tests.
+You may also notice that all dependencies except for the DevTools dependency have the word starter in their artifact ID. Spring Boot starter dependencies are special in that they typically don't have any library code themselves but instead transitively pull in other libraries. These starter dependencies offer the following primary benefits:
+ Your build file will be significantly smaller and easier to manage because you won't need to declare a dependency on every library you might need.
+ You're able to think of your dependencies in terms of what capabilities they provide, rather than their library names. If you're developing a web application, you'll add the web starter dependency rather than a laundry list of individual libraries that enable you to write a web application.
+ You're freed from the burden of worrying about library versions. You can trust that the versions of the libraries brought in transitively will be compatible for a given version of Spring Boot. You need to worry only about which version of Spring Boot you're using.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Initializing a Spring application
+
+15
+
+Finally, the build specification ends with the Spring Boot plugin. This plugin performs a few important functions, described next:
+ It provides a Maven goal that enables you to run the application using Maven.  It ensures that all dependency libraries are included within the executable JAR
+file and available on the runtime classpath.  It produces a manifest file in the JAR file that denotes the bootstrap class
+(TacoCloudApplication, in your case) as the main class for the executable JAR.
+Speaking of the bootstrap class, let's open it up and take a closer look.
+BOOTSTRAPPING THE APPLICATION Because you'll be running the application from an executable JAR, it's important to have a main class that will be executed when that JAR file is run. You'll also need at least a minimal amount of Spring configuration to bootstrap the application. That's what you'll find in the TacoCloudApplication class, shown in the following listing.
+
+Listing 1.2 The Taco Cloud bootstrap class
+
+package tacos;
+import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication public class TacoCloudApplication {
+
+Spring Boot application
+
+public static void main(String[] args) { SpringApplication.run(TacoCloudApplication.class, args);
+}
+
+}
+
+Runs the application
+
+Although there's little code in TacoCloudApplication, what's there packs quite a punch. One of the most powerful lines of code is also one of the shortest. The @SpringBootApplication annotation clearly signifies that this is a Spring Boot application. But there's more to @SpringBootApplication than meets the eye.
+@SpringBootApplication is a composite annotation that combines the following three annotations:
+ @SpringBootConfiguration--Designates this class as a configuration class. Although there's not much configuration in the class yet, you can add Javabased Spring Framework configuration to this class if you need to. This annotation is, in fact, a specialized form of the @Configuration annotation.
+ @EnableAutoConfiguration--Enables Spring Boot automatic configuration. We'll talk more about autoconfiguration later. For now, know that this annotation tells Spring Boot to automatically configure any components that it thinks you'll need.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+16
+
+CHAPTER 1 Getting started with Spring
+
+ @ComponentScan--Enables component scanning. This lets you declare other classes with annotations like @Component, @Controller, and @Service to have Spring automatically discover and register them as components in the Spring application context.
+The other important piece of TacoCloudApplication is the main() method. This is the method that will be run when the JAR file is executed. For the most part, this method is boilerplate code; every Spring Boot application you write will have a method similar or identical to this one (class name differences notwithstanding).
+The main() method calls a static run() method on the SpringApplication class, which performs the actual bootstrapping of the application, creating the Spring application context. The two parameters passed to the run() method are a configuration class and the command-line arguments. Although it's not necessary that the configuration class passed to run() be the same as the bootstrap class, this is the most convenient and typical choice.
+Chances are you won't need to change anything in the bootstrap class. For simple applications, you might find it convenient to configure one or two other components in the bootstrap class, but for most applications, you're better off creating a separate configuration class for anything that isn't autoconfigured. You'll define several configuration classes throughout the course of this book, so stay tuned for details.
+TESTING THE APPLICATION Testing is an important part of software development. You can always test your project manually by building it and then running it from the command line like this:
+$ ./mvnw package ... $ java -jar target/taco-cloud-0.0.1-SNAPSHOT.jar
+Or, because we're using Spring Boot, the Spring Boot Maven plugin makes it even easier, as shown next:
+$ ./mvnw spring-boot:run
+But manual testing implies that there's a human involved and thus potential for human error and inconsistent testing. Automated tests are more consistent and repeatable.
+Recognizing this, the Spring Initializr gives you a test class to get started. The following listing shows the baseline test class.
+Listing 1.3 A baseline application test
+package tacos;
+import org.junit.jupiter.api.Test; import org.springframework.boot.test.context.SpringBootTest;
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Writing a Spring application
+
+17
+
+@SpringBootTest public class TacoCloudApplicationTests {
+
+@Test public void contextLoads() { }
+}
+
+The test method
+
+A Spring Boot test
+
+There's not much to be seen in TacoCloudApplicationTests: the one test method in the class is empty. Even so, this test class does perform an essential check to ensure that the Spring application context can be loaded successfully. If you make any changes that prevent the Spring application context from being created, this test fails, and you can react by fixing the problem.
+The @SpringBootTest annotation tells JUnit to bootstrap the test with Spring Boot capabilities. Just like @SpringBootApplication, @SpringBootTest is a composite annotation, which is itself annotated with @ExtendWith(SpringExtension.class), to add Spring testing capabilities to JUnit 5. For now, though, it's enough to think of this as the test class equivalent of calling SpringApplication.run() in a main() method. Over the course of this book, you'll see @SpringBootTest several times, and we'll uncover some of its power.
+Finally, there's the test method itself. Although @SpringBootTest is tasked with loading the Spring application context for the test, it won't have anything to do if there aren't any test methods. Even without any assertions or code of any kind, this empty test method will prompt the two annotations to do their job and load the Spring application context. If there are any problems in doing so, the test fails.
+To run this and any test classes from the command line, you can use the following Maven incantation:
+
+$ ./mvnw test
+
+At this point, we've concluded our review of the code provided by the Spring Initializr. You've seen some of the boilerplate foundation that you can use to develop a Spring application, but you still haven't written a single line of code. Now it's time to fire up your IDE, dust off your keyboard, and add some custom code to the Taco Cloud application.
+
+1.3 Writing a Spring application
+Because you're just getting started, we'll start off with a relatively small change to the Taco Cloud application, but one that will demonstrate a lot of Spring's goodness. It seems appropriate that as you're just starting, the first feature you'll add to the Taco Cloud application is a home page. As you add the home page, you'll create the following two code artifacts:
+ A controller class that handles requests for the home page  A view template that defines what the home page looks like
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+18
+
+CHAPTER 1 Getting started with Spring
+
+And because testing is important, you'll also write a simple test class to test the home page. But first things first ... let's write that controller.
+
+1.3.1
+
+Handling web requests
+Spring comes with a powerful web framework known as Spring MVC. At the center of Spring MVC is the concept of a controller, a class that handles requests and responds with information of some sort. In the case of a browser-facing application, a controller responds by optionally populating model data and passing the request on to a view to produce HTML that's returned to the browser.
+You're going to learn a lot about Spring MVC in chapter 2. But for now, you'll write a simple controller class that handles requests for the root path (for example, /) and forwards those requests to the home page view without populating any model data. The following listing shows the simple controller class.
+
+Listing 1.4 The home page controller
+
+package tacos;
+
+import org.springframework.stereotype.Controller; import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller public class HomeController {
+
+The controller
+
+@GetMapping("/") public String home() {
+return "home"; }
+
+Handles requests for the root path /
+Returns the view name
+
+}
+
+As you can see, this class is annotated with @Controller. On its own, @Controller doesn't do much. Its primary purpose is to identify this class as a component for component scanning. Because HomeController is annotated with @Controller, Spring's component scanning automatically discovers it and creates an instance of HomeController as a bean in the Spring application context.
+In fact, a handful of other annotations (including @Component, @Service, and @Repository) serve a purpose similar to @Controller. You could have just as effectively annotated HomeController with any of those other annotations, and it would have still worked the same. The choice of @Controller is, however, more descriptive of this component's role in the application.
+The home() method is as simple as controller methods come. It's annotated with @GetMapping to indicate that if an HTTP GET request is received for the root path /, then this method should handle that request. It does so by doing nothing more than returning a String value of home.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Writing a Spring application
+
+19
+
+This value is interpreted as the logical name of a view. How that view is implemented depends on a few factors, but because Thymeleaf is in your classpath, you can define that template with Thymeleaf.
+
+Why Thymeleaf?
+You may be wondering why I chose Thymeleaf for a template engine. Why not JSP? Why not FreeMarker? Why not one of several other options?
+Put simply, I had to choose something, and I like Thymeleaf and generally prefer it over those other options. And even though JSP may seem like an obvious choice, there are some challenges to overcome when using JSP with Spring Boot. I didn't want to go down that rabbit hole in chapter 1. Hang tight. We'll look at other template options, including JSP, in chapter 2.
+
+The template name is derived from the logical view name by prefixing it with /templates/ and postfixing it with .html. The resulting path for the template is /templates/home.html. Therefore, you'll need to place the template in your project at /src/main/resources/templates/home.html. Let's create that template now.
+
+1.3.2
+
+Defining the view
+In the interest of keeping your home page simple, it should do nothing more than welcome users to the site. The next listing shows the basic Thymeleaf template that defines the Taco Cloud home page.
+
+Listing 1.5 The Taco Cloud home page template
+<!DOCTYPE html> <html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org"> <head>
+<title>Taco Cloud</title> </head>
+
+<body> <h1>Welcome to...</h1> <img th:src="@{/images/TacoCloud.png}"/>
+</body> </html>
+
+There's not much to discuss with regard to this template. The only notable line of code is the one with the <img> tag to display the Taco Cloud logo. It uses a Thymeleaf th:src attribute and an @{...} expression to reference the image with a context-relative path. Aside from that, it's not much more than a Hello World page.
+Let's talk about that image a bit more. I'll leave it up to you to define a Taco Cloud logo that you like. But you'll need to make sure you place it at the right place within the project.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+20
+
+CHAPTER 1 Getting started with Spring
+
+The image is referenced with the context-relative path /images/TacoCloud.png. As you'll recall from our review of the project structure, static content, such as images, is kept in the /src/main/resources/static folder. That means that the Taco Cloud logo image must also reside within the project at /src/main/resources/static/ images/TacoCloud.png.
+Now that you've got a controller to handle requests for the home page and a view template to render the home page, you're almost ready to fire up the application and see it in action. But first, let's see how you can write a test against the controller.
+
+1.3.3
+
+Testing the controller
+Testing web applications can be tricky when making assertions against the content of an HTML page. Fortunately, Spring comes with some powerful test support that makes testing a web application easy.
+For the purposes of the home page, you'll write a test that's comparable in complexity to the home page itself. Your test will perform an HTTP GET request for the root path / and expect a successful result where the view name is home and the resulting content contains the phrase "Welcome to...." The following code should do the trick.
+
+Listing 1.6 A test for the home page controller
+
+package tacos;
+
+import static org.hamcrest.Matchers.containsString; import static
+org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get; import static
+org.springframework.test.web.servlet.result.MockMvcResultMatchers.content; import static
+org.springframework.test.web.servlet.result.MockMvcResultMatchers.status; import static
+org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import org.junit.jupiter.api.Test; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest; import org.springframework.test.web.servlet.MockMvc;
+
+@WebMvcTest(HomeController.class) public class HomeControllerTest {
+@Autowired private MockMvc mockMvc;
+
+Web test for HomeController
+Injects MockMvc
+
+@Test public void testHomePage() throws Exception {
+mockMvc.perform(get("/")) .andExpect(status().isOk()) .andExpect(view().name("home")) .andExpect(content().string( containsString("Welcome to...")));
+
+Performs GET / Expects HTTP 200
+Expects home view Expects Welcome to...
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Writing a Spring application
+
+21
+
+} }
+
+The first thing you might notice about this test is that it differs slightly from the TacoCloudApplicationTests class with regard to the annotations applied to it. Instead of @SpringBootTest markup, HomeControllerTest is annotated with @WebMvcTest. This is a special test annotation provided by Spring Boot that arranges for the test to run in the context of a Spring MVC application. More specifically, in this case, it arranges for HomeController to be registered in Spring MVC so that you can send requests to it.
+@WebMvcTest also sets up Spring support for testing Spring MVC. Although it could be made to start a server, mocking the mechanics of Spring MVC is sufficient for your purposes. The test class is injected with a MockMvc object (thanks to the @Autowired annotation) for the test to drive the mockup.
+The testHomePage() method defines the test you want to perform against the home page. It starts with the MockMvc object to perform an HTTP GET request for / (the root path). From that request, it sets the following expectations:
+ The response should have an HTTP 200 (OK) status.  The view should have a logical name of home.  The rendered view should contain the text "Welcome to...."
+You can run the test in your IDE of choice or with Maven like this:
+
+$ mvnw test
+
+If, after the MockMvc object performs the request, any of those expectations aren't met, then the test will fail. But your controller and view template are written to satisfy those expectations, so the test should pass with flying colors--or at least with some shade of green indicating a passing test.
+The controller has been written, the view template created, and you have a passing test. It seems that you've implemented the home page successfully. But even though the test passes, there's something slightly more satisfying with seeing the results in a browser. After all, that's how Taco Cloud customers are going to see it. Let's build the application and run it.
+
+1.3.4
+
+Building and running the application
+Just as we have several ways to initialize a Spring application, we also have several ways to run one. If you like, you can flip over to the appendix to read about some of the more common ways to run a Spring Boot application.
+Because you chose to use Spring Tool Suite to initialize and work on the project, you have a handy feature called the Spring Boot Dashboard available to help you run your application inside the IDE. The Spring Boot Dashboard appears as a tab, typically near the bottom left of the IDE window. Figure 1.7 shows an annotated screenshot of the Spring Boot Dashboard.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+22
+
+CHAPTER 1 Getting started with Spring
+
+Starts/restarts the selected
+
+project in debug mode Stops the
+
+selected
+
+Starts/restarts the
+
+project
+
+selected project
+
+Opens a web browser on the running application
+Opens the console on the running application
+
+List of Spring Boot projects
+
+Indicates that the project has Spring Boot DevTools enabled
+
+Indicates that the running application is listening on port 8080
+
+Figure 1.7 Highlights of the Spring Boot Dashboard
+I don't want to spend much time going over everything the Spring Boot Dashboard does, although figure 1.7 covers some of the most useful details. The important thing to know right now is how to use it to run the Taco Cloud application. Make sure tacocloud application is highlighted in the list of projects (it's the only application shown in figure 1.7), and then click the start button (the left-most button with both a green triangle and a red square). The application should start right up.
+As the application starts, you'll see some Spring ASCII art fly by in the console, followed by some log entries describing the steps as the application starts. Before the logging stops, you'll see a log entry saying Tomcat started on port(s): 8080 (http), which means that you're ready to point your web browser at the home page to see the fruits of your labor.
+Wait a minute. Tomcat started? When did you deploy the application to a Tomcat web server?
+Spring Boot applications tend to bring everything they need with them and don't need to be deployed to some application server. You never deployed your application to Tomcat--Tomcat is a part of your application! (I'll describe the details of how Tomcat became part of your application in section 1.3.6.)
+Now that the application has started, point your web browser to http://localhost:8080 (or click the globe button in the Spring Boot Dashboard) and you should
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Writing a Spring application
+
+23
+
+see something like figure 1.8. Your results may be different if you designed your own logo image, but it shouldn't vary much from what you see in figure 1.8.
+
+Figure 1.8 The Taco Cloud home page
+
+It may not be much to look at. But this isn't exactly a book on graphic design. The humble appearance of the home page is more than sufficient for now. And it provides you a solid start on getting to know Spring.
+One thing I've glossed over up until now is DevTools. You selected it as a dependency when initializing your project. It appears as a dependency in the generated pom.xml file. And the Spring Boot Dashboard even shows that the project has DevTools enabled. But what is DevTools, and what does it do for you? Let's take a quick survey of a couple of DevTools's most useful features.
+
+1.3.5
+
+Getting to know Spring Boot DevTools
+As its name suggests, DevTools provides Spring developers with some handy development-time tools. Among those are the following:
+ Automatic application restart when code changes  Automatic browser refresh when browser-destined resources (such as templates,
+JavaScript, stylesheets, and so on) change  Automatic disabling of template caches  Built in H2 Console, if the H2 database is in use
+It's important to understand that DevTools isn't an IDE plugin, nor does it require that you use a specific IDE. It works equally well in Spring Tool Suite, IntelliJ IDEA,
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+24
+
+CHAPTER 1 Getting started with Spring
+
+and NetBeans. Furthermore, because it's intended only for development purposes, it's smart enough to disable itself when deploying in a production setting. We'll discuss how it does this when you get around to deploying your application in chapter 18. For now, let's focus on the most useful features of Spring Boot DevTools, starting with automatic application restart.
+AUTOMATIC APPLICATION RESTART
+With DevTools as part of your project, you'll be able to make changes to Java code and properties files in the project and see those changes applied after a brief moment. DevTools monitors for changes, and when it sees something has changed, it automatically restarts the application.
+More precisely, when DevTools is active, the application is loaded into two separate class loaders in the Java virtual machine (JVM). One class loader is loaded with your Java code, property files, and pretty much anything that's in the src/main/ path of the project. These are items that are likely to change frequently. The other class loader is loaded with dependency libraries, which aren't likely to change as often.
+When a change is detected, DevTools reloads only the class loader containing your project code and restarts the Spring application context but leaves the other class loader and the JVM intact. Although subtle, this strategy affords a small reduction in the time it takes to start the application.
+The downside of this strategy is that changes to dependencies won't be available in automatic restarts. That's because the class loader containing dependency libraries isn't automatically reloaded. Any time you add, change, or remove a dependency in your build specification, you'll need to do a hard restart of the application for those changes to take effect.
+AUTOMATIC BROWSER REFRESH AND TEMPLATE CACHE DISABLE By default, template options such as Thymeleaf and FreeMarker are configured to cache the results of template parsing so that templates don't need to be reparsed with every request they serve. This is great in production, because it buys a bit of a performance benefit.
+Cached templates, however, are not so great at development time. They make it impossible to make changes to the templates while the application is running and see the results after refreshing the browser. Even if you've made changes, the cached template will still be in use until you restart the application.
+DevTools addresses this issue by automatically disabling all template caching. Make as many changes as you want to your templates and know that you're only a browser refresh away from seeing the results.
+But if you're like me, you don't even want to be burdened with the effort of clicking the browser's refresh button. It'd be much nicer if you could make the changes and witness the results in the browser immediately. Fortunately, DevTools has something special for those of us who are too lazy to click a refresh button.
+DevTools automatically enables a LiveReload server (http://livereload.com/) along with your application. By itself, the LiveReload server isn't very useful. But when cou-
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Writing a Spring application
+
+25
+
+pled with a corresponding LiveReload browser plugin, it causes your browser to automatically refresh when changes are made to templates, images, stylesheets, JavaScript, and so on--in fact, almost anything that ends up being served to your browser.
+LiveReload has browser plugins for Google Chrome, Safari, and Firefox browsers. (Sorry, Internet Explorer and Edge fans.) Visit http://livereload.com/extensions/ to find information on how to install LiveReload for your browser.
+BUILT-IN H2 CONSOLE Although your project doesn't yet use a database, that will change in chapter 3. If you choose to use the H2 database for development, DevTools will also automatically enable an H2 console that you can access from your web browser. You only need to point your web browser to http://localhost:8080/h2-console to gain insight into the data your application is working with.
+At this point, you've written a complete, albeit simple, Spring application. You'll expand on it throughout the course of the book. But now is a good time to step back and review what you've accomplished and how Spring played a part.
+
+1.3.6
+
+Let's review
+Think back on how you got to this point. In short, you've taken the following steps to build your Taco Cloud Spring application:
+ You created an initial project structure using the Spring Initializr.  You wrote a controller class to handle the home page request.  You defined a view template to render the home page.  You wrote a simple test class to prove your work.
+Seems pretty straightforward, doesn't it? With the exception of the first step to bootstrap the project, each action you've taken has been keenly focused on achieving the goal of producing a home page.
+In fact, almost every line of code you've written is aimed toward that goal. Not counting Java import statements, I count only two lines of code in your controller class and no lines in the view template that are Spring-specific. And although the bulk of the test class utilizes Spring testing support, it seems a little less invasive in the context of a test.
+That's an important benefit of developing with Spring. You can focus on the code that meets the requirements of an application, rather than on satisfying the demands of a framework. Although you'll no doubt need to write some framework-specific code from time to time, it'll usually be only a small fraction of your codebase. As I said before, Spring (with Spring Boot) can be considered the frameworkless framework.
+How does this even work? What is Spring doing behind the scenes to make sure your application needs are met? To understand what Spring is doing, let's start by looking at the build specification.
+In the pom.xml file, you declared a dependency on the Web and Thymeleaf starters. These two dependencies transitively brought in a handful of other dependencies, including the following:
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+26
+
+CHAPTER 1 Getting started with Spring
+
+ Spring's MVC framework  Embedded Tomcat  Thymeleaf and the Thymeleaf layout dialect
+It also brought Spring Boot's autoconfiguration library along for the ride. When the application starts, Spring Boot autoconfiguration detects those libraries and automatically performs the following tasks:
+ Configures the beans in the Spring application context to enable Spring MVC  Configures the embedded Tomcat server in the Spring application context  Configures a Thymeleaf view resolver for rendering Spring MVC views with
+Thymeleaf templates
+In short, autoconfiguration does all the grunt work, leaving you to focus on writing code that implements your application functionality. That's a pretty sweet arrangement, if you ask me!
+Your Spring journey has just begun. The Taco Cloud application only touched on a small portion of what Spring has to offer. Before you take your next step, let's survey the Spring landscape and see what landmarks you'll encounter on your journey.
+
+1.4 Surveying the Spring landscape
+To get an idea of the Spring landscape, look no further than the enormous list of checkboxes on the full version of the Spring Initializr web form. It lists over 100 dependency choices, so I won't try to list them all here or to provide a screenshot. But I encourage you to take a look. In the meantime, I'll mention a few of the highlights.
+
+1.4.1
+
+The core Spring Framework
+As you might expect, the core Spring Framework is the foundation of everything else in the Spring universe. It provides the core container and dependency injection framework. But it also provides a few other essential features.
+Among these is Spring MVC, Spring's web framework. You've already seen how to use Spring MVC to write a controller class to handle web requests. What you've not yet seen, however, is that Spring MVC can also be used to create REST APIs that produce non-HTML output. We're going to dig more into Spring MVC in chapter 2 and then take another look at how to use it to create REST APIs in chapter 7.
+The core Spring Framework also offers some elemental data persistence support, specifically, template-based JDBC support. You'll see how to use JdbcTemplate in chapter 3.
+Spring includes support for reactive-style programming, including a new reactive web framework called Spring WebFlux that borrows heavily from Spring MVC. You'll look at Spring's reactive programming model in part 3 and Spring WebFlux specifically in chapter 12.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Surveying the Spring landscape
+
+27
+
+1.4.2
+
+Spring Boot
+We've already seen many of the benefits of Spring Boot, including starter dependencies and autoconfiguration. Be certain that we'll use as much of Spring Boot as possible throughout this book and avoid any form of explicit configuration, unless it's absolutely necessary. But in addition to starter dependencies and autoconfiguration, Spring Boot also offers the following other useful features:
+ The Actuator provides runtime insight into the inner workings of an application, including metrics, thread dump information, application health, and environment properties available to the application.
+ Flexible specification of environment properties.  Additional testing support on top of the testing assistance found in the core
+framework.
+What's more, Spring Boot offers an alternative programming model based on Groovy scripts that's called the Spring Boot CLI (command-line interface). With the Spring Boot CLI, you can write entire applications as a collection of Groovy scripts and run them from the command line. We won't spend much time with the Spring Boot CLI, but we'll touch on it on occasion when it fits our needs.
+Spring Boot has become such an integral part of Spring development that I can't imagine developing a Spring application without it. Consequently, this book takes a Spring Boot­centric view, and you might catch me using the word Spring when I'm referring to something that Spring Boot is doing.
+
+1.4.3
+
+Spring Data
+Although the core Spring Framework comes with basic data persistence support, Spring Data provides something quite amazing: the ability to define your application's data repositories as simple Java interfaces, using a naming convention when defining methods to drive how data is stored and retrieved.
+What's more, Spring Data is capable of working with several different kinds of databases, including relational (via JDBC or JPA), document (Mongo), graph (Neo4j), and others. You'll use Spring Data to help create repositories for the Taco Cloud application in chapter 3.
+
+1.4.4
+
+Spring Security
+Application security has always been an important topic, and it seems to become more important every day. Fortunately, Spring has a robust security framework in Spring Security.
+Spring Security addresses a broad range of application security needs, including authentication, authorization, and API security. Although the scope of Spring Security is too large to be properly covered in this book, we'll touch on some of the most common use cases in chapters 5 and 12.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+28
+
+CHAPTER 1 Getting started with Spring
+
+1.4.5
+
+Spring Integration and Spring Batch
+At some point, most applications will need to integrate with other applications or even with other components of the same application. Several patterns of application integration have emerged to address these needs. Spring Integration and Spring Batch provide the implementation of these patterns for Spring applications.
+Spring Integration addresses real-time integration where data is processed as it's made available. In contrast, Spring Batch addresses batched integration where data is allowed to collect for a time until some trigger (perhaps a time trigger) signals that it's time for the batch of data to be processed. You'll explore Spring Integration in chapter 10.
+
+1.4.6
+
+Spring Cloud
+The application development world is entering a new era where we'll no longer develop our applications as single-deployment, unit monoliths and will instead compose applications from several individual deployment units known as microservices.
+Microservices are a hot topic, addressing several practical development and runtime concerns. In doing so, however, they bring to fore their own challenges. Those challenges are met head-on by Spring Cloud, a collection of projects for developing cloud-native applications with Spring.
+Spring Cloud covers a lot of ground, and it'd be impossible to cover it all in this book. For a complete discussion of Spring Cloud, I suggest taking a look at Cloud Native Spring in Action by Thomas Vitale (Manning, 2020, www.manning.com/books/ cloud-native-spring-in-action).
+
+1.4.7
+
+Spring Native
+A relatively new development in Spring is the Spring Native project. This experimental project enables compilation of Spring Boot projects into native executables using the GraalVM native-image compiler, resulting in images that start significantly faster and have a lighter footprint.
+For more information on Spring Native, see https://github.com/spring-projectsexperimental/spring-native.
+
+Summary
+ Spring aims to make developer challenges easy, like creating web applications, working with databases, securing applications, and microservices.
+ Spring Boot builds on top of Spring to make Spring even easier with simplified dependency management, automatic configuration, and runtime insights.
+ Spring applications can be initialized using the Spring Initializr, which is webbased and supported natively in most Java development environments.
+ The components, commonly referred to as beans, in a Spring application context can be declared explicitly with Java or XML, discovered by component scanning, or automatically configured with Spring Boot autoconfigurations.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Developing web applications
+This chapter covers
+ Presenting model data in the browser  Processing and validating form input  Choosing a view template library
+First impressions are important. Curb appeal can sell a house long before the home buyer enters the door. A car's cherry red paint job will turn more heads than what's under the hood. And literature is replete with stories of love at first sight. What's inside is important, but what's outside--what's seen first---is also important.
+The applications you'll build with Spring will do all kinds of things, including crunching data, reading information from a database, and interacting with other applications. But the first impression your application users will get comes from the user interface. And in many applications, that UI is a web application presented in a browser.
+In chapter 1, you created your first Spring MVC controller to display your application home page. But Spring MVC can do far more than simply display static content. In this chapter, you'll develop the first major bit of functionality in your Taco Cloud application--the ability to design custom tacos. In doing so, you'll dig deeper into Spring MVC, and you'll see how to display model data and process form input.
+29
+Licensed to Zhigang Li <lzg14@qq.com>
+
+30
+
+CHAPTER 2 Developing web applications
+
+2.1 Displaying information
+Fundamentally, Taco Cloud is a place where you can order tacos online. But more than that, Taco Cloud wants to enable its customers to express their creative side and design custom tacos from a rich palette of ingredients.
+Therefore, the Taco Cloud web application needs a page that displays the selection of ingredients for taco artists to choose from. The ingredient choices may change at any time, so they shouldn't be hardcoded into an HTML page. Rather, the list of available ingredients should be fetched from a database and handed over to the page to be displayed to the customer.
+In a Spring web application, it's a controller's job to fetch and process data. And it's a view's job to render that data into HTML that will be displayed in the browser. You're going to create the following components in support of the taco creation page:
+ A domain class that defines the properties of a taco ingredient  A Spring MVC controller class that fetches ingredient information and passes it
+along to the view  A view template that renders a list of ingredients in the user's browser
+The relationship between these components is illustrated in figure 2.1.
+
+Request
+
+T aco design controller
+
+Web browser
+
+HTML
+
+Ingredients Request
+
+Design view
+
+Figure 2.1 A typical Spring MVC request flow
+Because this chapter focuses on Spring's web framework, we'll defer any of the database stuff to chapter 3. For now, the controller is solely responsible for providing the
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Displaying information
+
+31
+
+ingredients to the view. In chapter 3, you'll rework the controller to collaborate with a repository that fetches ingredients data from a database.
+Before you write the controller and view, let's hammer out the domain type that represents an ingredient. This will establish a foundation on which you can develop your web components.
+
+2.1.1
+
+Establishing the domain
+An application's domain is the subject area that it addresses--the ideas and concepts that influence the understanding of the application.1 In the Taco Cloud application, the domain includes such objects as taco designs, the ingredients that those designs are composed of, customers, and taco orders placed by the customers. Figure 2.2 shows these entities and how they are related.
+
+TacoOrder
+deliveryName: String deliveryStreet: String deliveryCity: String deliveryState: String deliveryZip: String ccNumber: String ccExpiration: String ccCVV: String
+
+Taco name: String
+Ingredient id: String name: String type: String
+
+Figure 2.2 The Taco Cloud domain
+
+<<enumeration>>
+Ingredient.Type
+WRAP PROTEIN VEGGIES CHEESE SAUCE
+
+To get started, we'll focus on taco ingredients. In your domain, taco ingredients are fairly simple objects. Each has a name as well as a type so that it can be visually categorized (proteins, cheeses, sauces, and so on). Each also has an ID by which it can easily and unambiguously be referenced. The following Ingredient class defines the domain object you need.
+Listing 2.1 Defining taco ingredients
+package tacos;
+import lombok.Data;
+
+1 For a much more in-depth discussion of application domains, I suggest Eric Evans's Domain-Driven Design (Addison-Wesley Professional, 2003).
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+32
+
+CHAPTER 2 Developing web applications
+
+@Data public class Ingredient {
+private final String id; private final String name; private final Type type;
+public enum Type { WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
+}
+}
+As you can see, this is a run-of-the-mill Java domain class, defining the three properties needed to describe an ingredient. Perhaps the most unusual thing about the Ingredient class as defined in listing 2.1 is that it seems to be missing the usual set of getter and setter methods, not to mention useful methods like equals(), hashCode(), toString(), and others.
+You don't see them in the listing partly to save space, but also because you're using an amazing library called Lombok to automatically generate those methods at compile time so that they will be available at run time. In fact, the @Data annotation at the class level is provided by Lombok and tells Lombok to generate all of those missing methods as well as a constructor that accepts all final properties as arguments. By using Lombok, you can keep the code for Ingredient slim and trim.
+Lombok isn't a Spring library, but it's so incredibly useful that I find it hard to develop without it. Plus, it's a lifesaver when I need to keep code examples in a book short and sweet.
+To use Lombok, you'll need to add it as a dependency in your project. If you're using Spring Tool Suite, it's an easy matter of right-clicking on the pom.xml file and selecting Add Starters from the Spring context menu. The same selection of dependencies you were given in chapter 1 (in figure 1.4) will appear, giving you a chance to add or change your selected dependencies. Find Lombok under Developer Tools, make sure it's selected, and click OK; Spring Tool Suite automatically adds it to your build specification.
+Alternatively, you can manually add it with the following entry in pom.xml:
+<dependency> <groupId>org.projectlombok</groupId> <artifactId>lombok</artifactId>
+</dependency>
+If you decide to manually add Lombok to your build, you'll also want to exclude it from the Spring Boot Maven plugin in the <build> section of the pom.xml file:
+<build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId>
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Displaying information
+
+33
+
+<configuration> <excludes> <exclude> <groupId>org.projectlombok</groupId> <artifactId>lombok</artifactId> </exclude> </excludes>
+</configuration> </plugin> </plugins> </build>
+Lombok's magic is applied at compile time, so there's no need for it to be available at run time. Excluding it like this keeps it out of the resulting JAR or WAR file.
+The Lombok dependency provides you with Lombok annotations (such as @Data) at development time and with automatic method generation at compile time. But you'll also need to add Lombok as an extension in your IDE, or your IDE will complain, with errors about missing methods and final properties that aren't being set. Visit https:// projectlombok.org/ to find out how to install Lombok in your IDE of choice.
+
+Why are there so many errors in my code?
+It bears repeating that when using Lombok, you must install the Lombok plugin into your IDE. Without it, your IDE won't be aware that Lombok is providing getters, setters, and other methods and will complain that they are missing.
+Lombok is supported in a number of popular IDEs, including Eclipse, Spring Tool Suite, IntelliJ IDEA, and Visual Studio Code. Visit https://projectlombok .org/ for more information on how to install the Lombok plugin into your IDE.
+
+I think you'll find Lombok to be very useful, but know that it's optional. You don't need it to develop Spring applications, so if you'd rather not use it, feel free to write those missing methods by hand. Go ahead ... I'll wait.
+Ingredients are the essential building blocks of a taco. To capture how those ingredients are brought together, we'll define the Taco domain class, as shown next.
+Listing 2.2 A domain object defining a taco design
+package tacos; import java.util.List; import lombok.Data;
+@Data public class Taco {
+private String name;
+private List<Ingredient> ingredients;
+}
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+34
+
+CHAPTER 2 Developing web applications
+
+As you can see, Taco is a straightforward Java domain object with a couple of properties. Like Ingredient, the Taco class is annotated with @Data to have Lombok automatically generate essential JavaBean methods for you at compile time.
+Now that we have defined Ingredient and Taco, we need one more domain class that defines how customers specify the tacos that they want to order, along with payment and delivery information. That's the job of the TacoOrder class, shown here.
+
+Listing 2.3 A domain object for taco orders
+package tacos; import java.util.List; import java.util.ArrayList; import lombok.Data;
+@Data public class TacoOrder {
+private String deliveryName; private String deliveryStreet; private String deliveryCity; private String deliveryState; private String deliveryZip; private String ccNumber; private String ccExpiration; private String ccCVV;
+private List<Taco> tacos = new ArrayList<>();
+public void addTaco(Taco taco) { tacos.add(taco);
+} }
+
+Aside from having more properties than either Ingredient or Taco, there's nothing particularly new to discuss about TacoOrder. It's a simple domain class with nine properties: five for delivery information, three for payment information, and one that is the list of Taco objects that make up the order. There's also an addTaco() method that's added for the convenience of adding tacos to the order.
+Now that the domain types are defined, we're ready to put them to work. Let's add a few controllers to handle web requests in the application.
+
+2.1.2
+
+Creating a controller class
+Controllers are the major players in Spring's MVC framework. Their primary job is to handle HTTP requests and either hand off a request to a view to render HTML (browser-displayed) or write data directly to the body of a response (RESTful). In this chapter, we're focusing on the kinds of controllers that use views to produce content for web browsers. When we get to chapter 7, we'll look at writing controllers that handle requests in a REST API.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Displaying information
+
+35
+
+For the Taco Cloud application, you need a simple controller that will do the following:
+ Handle HTTP GET requests where the request path is /design  Build a list of ingredients  Hand off the request and the ingredient data to a view template to be rendered
+as HTML and sent to the requesting web browser
+The DesignTacoController class in the next listing addresses those requirements.
+Listing 2.4 The beginnings of a Spring controller class
+package tacos.web;
+import java.util.Arrays; import java.util.List; import java.util.stream.Collectors; import org.springframework.stereotype.Controller; import org.springframework.ui.Model; import org.springframework.web.bind.annotation.GetMapping; import org.springframework.web.bind.annotation.ModelAttribute; import org.springframework.web.bind.annotation.PostMapping; import org.springframework.web.bind.annotation.RequestMapping; import org.springframework.web.bind.annotation.SessionAttributes;
+import lombok.extern.slf4j.Slf4j; import tacos.Ingredient; import tacos.Ingredient.Type; import tacos.Taco; import tacos.TacoOrder
+@Slf4j @Controller @RequestMapping("/design") @SessionAttributes("tacoOrder") public class DesignTacoController {
+@ModelAttribute public void addIngredientsToModel(Model model) {
+List<Ingredient> ingredients = Arrays.asList( new Ingredient("FLTO", "Flour Tortilla", Type.WRAP), new Ingredient("COTO", "Corn Tortilla", Type.WRAP), new Ingredient("GRBF", "Ground Beef", Type.PROTEIN), new Ingredient("CARN", "Carnitas", Type.PROTEIN), new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES), new Ingredient("LETC", "Lettuce", Type.VEGGIES), new Ingredient("CHED", "Cheddar", Type.CHEESE), new Ingredient("JACK", "Monterrey Jack", Type.CHEESE), new Ingredient("SLSA", "Salsa", Type.SAUCE), new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
+);
+Type[] types = Ingredient.Type.values(); for (Type type : types) {
+model.addAttribute(type.toString().toLowerCase(),
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+36
+
+CHAPTER 2 Developing web applications
+
+filterByType(ingredients, type)); } }
+@ModelAttribute(name = "tacoOrder") public TacoOrder order() {
+return new TacoOrder(); }
+@ModelAttribute(name = "taco") public Taco taco() {
+return new Taco(); }
+@GetMapping public String showDesignForm() {
+return "design"; }
+private Iterable<Ingredient> filterByType( List<Ingredient> ingredients, Type type) {
+return ingredients .stream() .filter(x -> x.getType().equals(type)) .collect(Collectors.toList());
+}
+}
+The first thing to note about DesignTacoController is the set of annotations applied at the class level. The first, @Slf4j, is a Lombok-provided annotation that, at compilation time, will automatically generate an SLF4J (Simple Logging Facade for Java, https://www.slf4j.org/) Logger static property in the class. This modest annotation has the same effect as if you were to explicitly add the following lines within the class:
+private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(DesignTacoController.class);
+You'll make use of this Logger a little later. The next annotation applied to DesignTacoController is @Controller. This
+annotation serves to identify this class as a controller and to mark it as a candidate for component scanning, so that Spring will discover it and automatically create an instance of DesignTacoController as a bean in the Spring application context.
+DesignTacoController is also annotated with @RequestMapping. The @RequestMapping annotation, when applied at the class level, specifies the kind of requests that this controller handles. In this case, it specifies that DesignTacoController will handle requests whose path begins with /design.
+Finally, you see that DesignTacoController is annotated with @SessionAttributes ("tacoOrder"). This indicates that the TacoOrder object that is put into the model a little later in the class should be maintained in session. This is important because the
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Displaying information
+
+37
+
+creation of a taco is also the first step in creating an order, and the order we create will need to be carried in the session so that it can span multiple requests.
+HANDLING A GET REQUEST The class-level @RequestMapping specification is refined with the @GetMapping annotation that adorns the showDesignForm() method. @GetMapping, paired with the classlevel @RequestMapping, specifies that when an HTTP GET request is received for /design, Spring MVC will call showDesignForm() to handle the request.
+@GetMapping is just one member of a family of request-mapping annotations. Table 2.1 lists all of the request-mapping annotations available in Spring MVC.
+
+Table 2.1 Spring MVC request-mapping annotations
+
+Annotation @RequestMapping @GetMapping @PostMapping @PutMapping @DeleteMapping @PatchMapping
+
+Description General-purpose request handling Handles HTTP GET requests Handles HTTP POST requests Handles HTTP PUT requests Handles HTTP DELETE requests Handles HTTP PATCH requests
+
+When showDesignForm() handles a GET request for /design, it doesn't really do much. The main thing it does is return a String value of "taco", which is the logical name of the view that will be used to render the model to the browser. But before it does that, it also populates the given Model with an empty Taco object under a key whose name is "taco". This will enable the form to have a blank slate on which to create a taco masterpiece.
+It would seem that a GET request to /design doesn't do much. But on the contrary, there's a bit more involved than what is found in the showDesignForm() method. You'll also notice a method named addIngredientsToModel() that is annotated with @ModelAttribute. This method will also be invoked when a request is handled and will construct a list of Ingredient objects to be put into the model. The list is hardcoded for now. When we get to chapter 3, you'll pull the list of available taco ingredients from a database.
+Once the list of ingredients is ready, the next few lines of addIngredientsToModel() filters the list by ingredient type using a helper method named filterByType(). A list of ingredient types is then added as an attribute to the Model object that will be passed into showDesignForm(). Model is an object that ferries data between a controller and whatever view is charged with rendering that data. Ultimately, data that's placed in Model attributes is copied into the servlet request attributes, where the view can find them and use them to render a page in the user's browser.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+38
+
+CHAPTER 2 Developing web applications
+
+Following addIngredientsToModel() are two more methods that are also annotated with @ModelAttribute. These methods are much simpler and create only a new TacoOrder and Taco object to place into the model. The TacoOrder object, referred to earlier in the @SessionAttributes annotation, holds state for the order being built as the user creates tacos across multiple requests. The Taco object is placed into the model so that the view rendered in response to the GET request for /design will have a non-null object to display.
+Your DesignTacoController is really starting to take shape. If you were to run the application now and point your browser at the /design path, the DesignTacoController's showDesignForm() and addIngredientsToModel() would be engaged, placing ingredients and an empty Taco into the model before passing the request on to the view. But because you haven't defined the view yet, the request would take a horrible turn, resulting in an HTTP 500 (Internal Server Error) error. To fix that, let's switch our attention to the view where the data will be decorated with HTML to be presented in the user's web browser.
+
+2.1.3
+
+Designing the view
+After the controller is finished with its work, it's time for the view to get going. Spring offers several great options for defining views, including JavaServer Pages (JSP), Thymeleaf, FreeMarker, Mustache, and Groovy-based templates. For now, we'll use Thymeleaf, the choice we made in chapter 1 when starting the project. We'll consider a few of the other options in section 2.5.
+We have already added Thymeleaf as a dependency in chapter 1. At run time, Spring Boot autoconfiguration sees that Thymeleaf is in the classpath and automatically creates the beans that support Thymeleaf views for Spring MVC.
+View libraries such as Thymeleaf are designed to be decoupled from any particular web framework. As such, they're unaware of Spring's model abstraction and are unable to work with the data that the controller places in Model. But they can work with servlet request attributes. Therefore, before Spring hands the request over to a view, it copies the model data into request attributes that Thymeleaf and other viewtemplating options have ready access to.
+Thymeleaf templates are just HTML with some additional element attributes that guide a template in rendering request data. For example, if there were a request attribute whose key is "message", and you wanted it to be rendered into an HTML <p> tag by Thymeleaf, you'd write the following in your Thymeleaf template:
+
+<p th:text="${message}">placeholder message</p>
+
+When the template is rendered into HTML, the body of the <p> element will be replaced with the value of the servlet request attribute whose key is "message". The th:text attribute is a Thymeleaf namespace attribute that performs the replacement. The ${} operator tells it to use the value of a request attribute ("message", in this case).
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Displaying information
+
+39
+
+Thymeleaf also offers another attribute, th:each, that iterates over a collection of elements, rendering the HTML once for each item in the collection. This attribute will come in handy as you design your view to list taco ingredients from the model. For example, to render just the list of "wrap" ingredients, you can use the following snippet of HTML:
+<h3>Designate your wrap:</h3> <div th:each="ingredient : ${wrap}">
+<input th:field="*{ingredients}" type="checkbox" th:value="${ingredient.id}"/>
+<span th:text="${ingredient.name}">INGREDIENT</span><br/> </div>
+Here, you use the th:each attribute on the <div> tag to repeat rendering of the <div> once for each item in the collection found in the wrap request attribute. On each iteration, the ingredient item is bound to a Thymeleaf variable named ingredient.
+Inside the <div> element are a check box <input> element and a <span> element to provide a label for the check box. The check box uses Thymeleaf's th:value to set the rendered <input> element's value attribute to the value found in the ingredient's id property. The th:field attribute ultimately sets the <input> element's name attribute and is used to remember whether or not the check box is checked. When we add validation later, this will ensure that the check box maintains its state should the form need to be redisplayed after a validation error. The <span> element uses th:text to replace the "INGREDIENT" placeholder text with the value of the ingredient's name property.
+When rendered with actual model data, one iteration of that <div> loop might look like this:
+<div> <input name="ingredients" type="checkbox" value="FLTO" /> <span>Flour Tortilla</span><br/>
+</div>
+Ultimately, the preceding Thymeleaf snippet is just part of a larger HTML form through which your taco artist users will submit their tasty creations. The complete Thymeleaf template, including all ingredient types and the form, is shown in the following listing.
+
+Listing 2.5 The complete design-a-taco page
+<!DOCTYPE html> <html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org"> <head>
+<title>Taco Cloud</title> <link rel="stylesheet" th:href="@{/styles.css}" /> </head>
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+40
+
+CHAPTER 2 Developing web applications
+
+<body> <h1>Design your taco!</h1> <img th:src="@{/images/TacoCloud.png}"/>
+<form method="POST" th:object="${taco}"> <div class="grid">
+<div class="ingredient-group" id="wraps"> <h3>Designate your wrap:</h3> <div th:each="ingredient : ${wrap}">
+<input th:field="*{ingredients}" type="checkbox" th:value="${ingredient.id}"/>
+<span th:text="${ingredient.name}">INGREDIENT</span><br/> </div> </div>
+<div class="ingredient-group" id="proteins"> <h3>Pick your protein:</h3> <div th:each="ingredient : ${protein}">
+<input th:field="*{ingredients}" type="checkbox" th:value="${ingredient.id}"/>
+<span th:text="${ingredient.name}">INGREDIENT</span><br/> </div> </div>
+<div class="ingredient-group" id="cheeses"> <h3>Choose your cheese:</h3> <div th:each="ingredient : ${cheese}">
+<input th:field="*{ingredients}" type="checkbox" th:value="${ingredient.id}"/>
+<span th:text="${ingredient.name}">INGREDIENT</span><br/> </div> </div>
+<div class="ingredient-group" id="veggies"> <h3>Determine your veggies:</h3> <div th:each="ingredient : ${veggies}">
+<input th:field="*{ingredients}" type="checkbox" th:value="${ingredient.id}"/>
+<span th:text="${ingredient.name}">INGREDIENT</span><br/> </div> </div>
+<div class="ingredient-group" id="sauces"> <h3>Select your sauce:</h3> <div th:each="ingredient : ${sauce}">
+<input th:field="*{ingredients}" type="checkbox" th:value="${ingredient.id}"/>
+<span th:text="${ingredient.name}">INGREDIENT</span><br/> </div> </div> </div>
+<div>
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Processing form submission
+
+41
+
+<h3>Name your taco creation:</h3> <input type="text" th:field="*{name}"/> <br/>
+<button>Submit Your Taco</button> </div> </form> </body> </html>
+As you can see, you repeat the <div> snippet for each of the types of ingredients, and you include a Submit button and field where the user can name their creation.
+It's also worth noting that the complete template includes the Taco Cloud logo image and a <link> reference to a stylesheet.2 In both cases, Thymeleaf's @{} operator is used to produce a context-relative path to the static artifacts that these tags are referencing. As you learned in chapter 1, static content in a Spring Boot application is served from the /static directory at the root of the classpath.
+Now that your controller and view are complete, you can fire up the application to see the fruits of your labor. We have many ways to run a Spring Boot application. In chapter 1, I showed you how to run the application by clicking the Start button in the Spring Boot Dashboard. No matter how you fire up the Taco Cloud application, once it starts, point your browser to http://localhost:8080/design. You should see a page that looks something like figure 2.3.
+It's looking good! A taco artist visiting your site is presented with a form containing a palette of taco ingredients from which they can create their masterpiece. But what happens when they click the Submit Your Taco button?
+Your DesignTacoController isn't yet ready to accept taco creations. If the design form is submitted, the user will be presented with an error. (Specifically, it will be an HTTP 405 error: Request Method "POST" Not Supported.) Let's fix that by writing some more controller code that handles form submission.
+2.2 Processing form submission
+If you take another look at the <form> tag in your view, you can see that its method attribute is set to POST. Moreover, the <form> doesn't declare an action attribute. This means that when the form is submitted, the browser will gather all the data in the form and send it to the server in an HTTP POST request to the same path for which a GET request displayed the form--the /design path.
+Therefore, you need a controller handler method on the receiving end of that POST request. You need to write a new handler method in DesignTacoController that handles a POST request for /design.
+
+2 The contents of the stylesheet aren't relevant to our discussion; it contains only styling to present the ingredients in two columns instead of one long list of ingredients.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+42
+
+CHAPTER 2 Developing web applications
+
+Figure 2.3 The rendered taco design page
+In listing 2.4, you used the @GetMapping annotation to specify that the showDesignForm() method should handle HTTP GET requests for /design. Just like @GetMapping handles GET requests, you can use @PostMapping to handle POST requests. For handling taco design submissions, add the processTaco() method in the following listing to DesignTacoController.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Processing form submission
+
+43
+
+Listing 2.6 Handling POST requests with @PostMapping
+@PostMapping public String processTaco(Taco taco,
+@ModelAttribute TacoOrder tacoOrder) { tacoOrder.addTaco(taco); log.info("Processing taco: {}", taco);
+return "redirect:/orders/current"; }
+As applied to the processTaco() method, @PostMapping coordinates with the class-level @RequestMapping to indicate that processTaco() should handle POST requests for /design. This is precisely what you need to process a taco artist's submitted creations.
+When the form is submitted, the fields in the form are bound to properties of a Taco object (whose class is shown in the next listing) that's passed as a parameter into processTaco(). From there, the processTaco() method can do whatever it wants with the Taco object. In this case, it adds the Taco to the TacoOrder object passed as a parameter to the method and then logs it. The @ModelAttribute applied to the TacoOrder parameter indicates that it should use the TacoOrder object that was placed into the model via the @ModelAttribute-annotated order() method shown earlier in listing 2.4.
+If you look back at the form in listing 2.5, you'll see several checkbox elements, all with the name ingredients, and a text input element named name. Those fields in the form correspond directly to the ingredients and name properties of the Taco class.
+The name field on the form needs to capture only a simple textual value. Thus the name property of Taco is of type String. The ingredients check boxes also have textual values, but because zero or many of them may be selected, the ingredients property that they're bound to is a List<Ingredient> that will capture each of the chosen ingredients.
+But wait. If the ingredients check boxes have textual (e.g., String) values, but the Taco object represents a list of ingredients as List<Ingredient>, then isn't there a mismatch? How can a textual list like ["FLTO", "GRBF", "LETC"] be bound to a list of Ingredient objects that are richer objects containing not only an ID but also a descriptive name and ingredient type?
+That's where a converter comes in handy. A converter is any class that implements Spring's Converter interface and implements its convert() method to take one value and convert it to another. To convert a String to an Ingredient, we'll use the IngredientByIdConverter as follows.
+Listing 2.7 Converting strings to ingredients
+package tacos.web;
+import java.util.HashMap; import java.util.Map;
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+

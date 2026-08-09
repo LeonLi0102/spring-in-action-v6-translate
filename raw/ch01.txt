@@ -1,0 +1,211 @@
+Licensed to Zhigang Li <lzg14@qq.com>
+
+preface
+Spring entered the development world more than 18 years ago with the fundamental mission of making Java application development easier. Originally, that meant offering a lightweight alternative to EJB 2.x. But Spring was just getting started. Over the years, Spring expanded its mission of simplicity to address common development challenges, including persistence, security, integration, cloud computing, and others.
+Although Spring is closing in on two decades of enabling and simplifying enterprise Java development, it shows no signs of slowing down. Spring continues to address Java development challenges, whether it be creating an application deployed to a conventional application server or a containerized application deployed to a Kubernetes cluster in the cloud. And with Spring Boot providing autoconfiguration, build dependency help, and runtime monitoring, there has never been a better time to be a Spring developer!
+This edition of Spring in Action is your guide to Spring and Spring Boot and has been updated to reflect the best of what both have to offer. Even if you're new to Spring, you'll have your first Spring application up and running before the end of the first chapter. As the book progresses, you'll learn how to create web applications, work with data, secure your application, and manage application configuration. Next, you'll explore options for integrating your Spring applications with other applications and how to benefit from reactive programming in your Spring applications, including the new RSocket communication protocol. As the book draws to a close, you'll see how to prepare your application for production and learn options for deploying.
+xvii
+Licensed to Zhigang Li <lzg14@qq.com>
+
+xviii
+
+PREFACE
+
+Whether you're new to Spring or have many years of Spring development to your credit, this is your next step in your journey. I'm excited for you and happy to bring this guide to you. I look forward to seeing what you create with Spring!
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+acknowledgments
+One of the most amazing things that Spring and Spring Boot do is automatically provide all of the foundational plumbing for an application, leaving you as a developer to focus primarily on the logic that's unique to your application. Unfortunately, no such magic exists for writing a book. Or does it?
+At Manning, several people worked their magic to make sure that this book is the best it can possibly be. Many thanks in particular to my development editor, Jenny Stout, and to production editor, Deirdre Hiam, copy editor, Pamela Hunt, graphics editor, Jennifer Houle, and the entire production team for their wonderful work in making this book a reality.
+As the book was forming, we had several peer reviewers take an early look, give us feedback, and help make sure that the book stayed on target and covered the right stuff. For this, my thanks go to Al Pezewski, Alessandro Campeis, Becky Huett, Christian Kreutzer-Beck, Conor Redmond, David Paccoud, David Torrubia Iñigo, David Witherspoon German Gonzalez-Morris, Iain Campbell, Jon Guenther, Kevin Liao, Mark Dechamps, Michael Bright, Philippe Vialatte, Pierre-Michel Ansel, Tony Sweets, William Fly, and Zorodzayi Mukuya.
+I absolutely must give a shout out to everyone on the Spring engineering team. You consistently produce some of the most incredible stuff I've ever worked with, and I am proud to consider you my colleagues.
+Many thanks go to my fellow speakers on the No Fluff/Just Stuff tour. I continue to learn so much from every one of you. And many thanks to those of you who have
+xix
+Licensed to Zhigang Li <lzg14@qq.com>
+
+xx
+
+ACKNOWLEDGMENTS
+
+attended one of my sessions on the NFJS tour; although I'm the one at the front of the room, I often learn a lot from you, too.
+As I did in the previous edition, I'd like to thank the Phoenicians. You know what you did.
+Finally, to my beautiful wife, Raymie, the love of my life and my sweetest dream: thank you for your encouragement and for putting up with yet another book project. And to my sweet and wonderful girls, Maisy and Madi: I am so proud of you and of the amazing young ladies you are becoming. I love all of you more than you can possibly know or words can express.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+about this book
+Spring in Action, Sixth Edition, was written to equip you to build amazing applications using the Spring Framework, Spring Boot, and a variety of ancillary members of the Spring ecosystem. It begins by showing you how to develop web-based, databasebacked Java applications with Spring and Spring Boot. It then expands on the essentials by showing how to integrate with other applications and programs using reactive types. Finally, it discusses how to ready an application for deployment.
+Although all of the projects in the Spring ecosystem provide excellent documentation, this book does something that none of the reference documents do: provide a hands-on, project-driven guide to bringing the elements of Spring together and build a real application.
+Who should read this book Spring in Action, Sixth Edition, is for Java developers who want to get started with Spring Boot and the Spring Framework as well as for seasoned Spring developers who want to go beyond the basics and learn the newest features of Spring.
+How this book is organized: A roadmap The book has four parts spanning 18 chapters. Part 1 covers the foundational topics of building Spring applications:
+ Chapter 1 introduces Spring and Spring Boot and how to initialize a Spring project. In this chapter, you'll take the first steps toward building a Spring application that you'll expand on throughout the course of the book.
+xxi
+Licensed to Zhigang Li <lzg14@qq.com>
+
+xxii
+
+ABOUT THIS BOOK
+
+ Chapter 2 discusses building the web layer of an application using Spring MVC. In this chapter, you'll build controllers that handle web requests and views that render information in the web browser.
+ Chapter 3 delves into the backend of a Spring application, where data is persisted to a relational database.
+ Chapter 4 continues the subject of data persistence by looking at how to persist data to nonrelational databases, specifically, Cassandra and MongoDB.
+ In chapter 5, you'll use Spring Security to authenticate users and prevent unauthorized access to an application.
+ Chapter 6 reveals how to configure a Spring application using Spring Boot configuration properties. You'll also learn how to selectively apply configuration using profiles.
+Part 2 covers topics that help integrate your Spring application with other applications:
+ Chapter 7 expands on the discussion of Spring MVC started in chapter 2, by looking at how to write and consume REST APIs in Spring.
+ Chapter 8 shows how to secure the APIs created in chapter 7, with Spring Security and OAuth 2.
+ Chapter 9 looks at using asynchronous communication to enable a Spring application to both send and receive messages using the Java Message Service, RabbitMQ, or Kafka.
+ Chapter 10 discusses declarative application integration using the Spring Integration project.
+Part 3 explores the exciting new support for reactive programming in Spring:
+ Chapter 11 introduces Project Reactor, the reactive programming library that underpins Spring 5's reactive features.
+ Chapter 12 revisits REST API development, introducing Spring WebFlux, a new web framework that borrows much from Spring MVC while offering a new reactive model for web development.
+ Chapter 13 takes a look at writing reactive data persistence with Spring Data to read and write data to Cassandra and Mongo databases.
+ Chapter 14 introduces RSocket, a new communication protocol that offers a reactive alternative to HTTP for creating APIs.
+In part 4, you'll ready an application for production and see how to deploy it:
+ Chapter 15 introduces the Spring Boot Actuator, an extension to Spring Boot that exposes the internals of a running Spring application as REST endpoints.
+ In chapter 16, you'll see how to use Spring Boot Admin to put a user-friendly browser-based administrative application on top of the Actuator.
+ Chapter 17 discusses how to expose and consume Spring beans as JMX MBeans.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+ABOUT THIS BOOK
+
+xxiii
+
+ Finally, in chapter 18, you'll see how to deploy your Spring application in a variety of production environments, including Kubernetes.
+In general, developers new to Spring should start with chapter 1 and work through each chapter sequentially. Experienced Spring developers may prefer to jump in at any point that interests them. Even so, each chapter builds on the previous one, so there may be some context missing if you dive into the middle of the book.
+About the code
+This book contains many examples of source code, both in numbered listings and inline with normal text. In both cases, source code is formatted in a fixed-width font like this to separate it from ordinary text.
+In many cases the original source code has been reformatted; we've added line breaks and reworked indentation to accommodate the available page space in the book. In rare cases, even this was not enough, and listings include line-continuation markers (). Additionally, comments in the source code have often been removed from the listings when the code is described in the text. Code annotations accompany many of the listings, highlighting important concepts.
+You can get executable snippets of code from the liveBook (online) version of this book at https://livebook.manning.com/book/spring-in-action-sixth-edition. The complete code for the examples in the book is available for download from the Manning website at https://www.manning.com/books/spring-in-action-sixth-edition, and from GitHub at github.com/habuma/spring-in-action-6-samples.
+Book forum
+Purchase of Spring in Action, Sixth Edition, includes free access to liveBook, Manning's online reading platform. Using liveBook's exclusive discussion features, you can attach comments to the book globally or to specific sections or paragraphs. It's a snap to make notes for yourself, ask and answer technical questions, and receive help from the author and other users. To access the forum, go to https://forums.manning.com/ forums/spring-in-action-sixth-edition. You can also learn more about Manning's forums and the rules of conduct at https://forums.manning.com/forums/about.
+Manning's commitment to our readers is to provide a venue where a meaningful dialogue between individual readers and between readers and the author can take place. It is not a commitment to any specific amount of participation on the part of the author, whose contribution to the forum remains voluntary (and unpaid). We suggest you try asking the author some challenging questions lest his interest stray! The forum and the archives of previous discussions will be accessible from the publisher's website as long as the book is in print.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+xxiv
+
+ABOUT THIS BOOK
+
+Other online resources
+Need additional help?
+ The Spring website has several useful getting-started guides (some of which were written by the author of this book) at https://spring.io/guides.
+ The Spring tag at Stack Overflow (https://stackoverflow.com/questions/tagged/ spring) as well as the Spring Boot tag at Stack Overflow (https://stackoverflow .com/questions/tagged/spring-boot) are great places to ask questions and help others with Spring. Helping someone else with their Spring questions is a great way to learn Spring!
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+about the author
+CRAIG WALLS is a senior engineer with VMware. He's a zealous promoter of the Spring Framework, speaking frequently at local user groups and conferences and writing about Spring. When he's not slinging code, Craig is planning his next trip to Disney World or Disneyland and spending as much time as he can with his wife, two daughters, three dogs, and a parrot.
+xxv Licensed to Zhigang Li <lzg14@qq.com>
+
+about the cover illustration
+The figure on the cover of Spring in Action, 6th edition, is "Le Caraco," or an inhabitant of the province of Karak in southwest Jordan. Its capital is the city of Al-Karak, which boasts an ancient hilltop castle with magnificent views of the Dead Sea and surrounding plains. The illustration is taken from a French travel book, Encyclopédie des voyages by J. G. St. Sauveur, published in 1796. Travel for pleasure was a relatively new phenomenon at the time, and travel guides such as this one were popular, introducing both the tourist as well as the armchair traveler to the inhabitants of other regions of France and abroad.
+The diversity of the drawings in the Encyclopédie des voyages speaks vividly of the distinctiveness and individuality of the world's towns and provinces just 200 years ago. This was a time when the dress codes of two regions separated by a few dozen miles identified people uniquely as belonging to one or the other. The travel guide brings to life a sense of isolation and distance of that period, and of every other historic period except our own hyperkinetic present.
+Dress codes have changed since then, and the diversity by region, so rich at the time, has faded away. It is now often hard to tell the inhabitants of one continent from another. Perhaps, trying to view it optimistically, we have traded a cultural and visual diversity for a more varied personal life--or a more varied and interesting intellectual and technical life. We at Manning celebrate the inventiveness, the initiative, and the fun of the computer business with book covers based on the rich diversity of regional life two centuries ago brought back to life by the pictures from this travel guide.
+xxvi
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Part 1
+Foundational Spring
+Part 1 of this book will get you started writing a Spring application, learning
+the foundations of Spring along the way. In chapter 1, I'll give you a quick overview of Spring and Spring Boot essen-
+tials and show you how to initialize a Spring project as you work on building Taco Cloud, your first Spring application. In chapter 2, you'll dig deeper into the Spring MVC and learn how to present model data in the browser and how to process and validate form input. You'll also get some tips on choosing a view template library. You'll add data persistence to the Taco Cloud application in chapter 3, where we'll cover using Spring's JDBC template and how to insert data using prepared statements and key holders. Then you'll see how to declare JDBC (Java Database Connectivity) and JPA (Java Persistence API) repositories with Spring Data. Chapter 4 continues the Spring persistence story by looking at two more Spring Data modules for persisting data to Cassandra and MongoDB. Chapter 5 covers security for your Spring application, including autoconfiguring Spring Security, defining custom user storage, customizing the login page, and securing against cross-site request forgery attacks. To close out part 1, we'll look at configuration properties in chapter 6. You'll learn how to fine-tune autoconfigured beans, apply configuration properties to application components, and work with Spring profiles.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Getting started with Spring
+This chapter covers
+ Spring and Spring Boot essentials  Initializing a Spring project  An overview of the Spring landscape
+Although the Greek philosopher Heraclitus wasn't well known as a software developer, he seems to have had a good handle on the subject. He has been quoted as saying, "The only constant is change." That statement captures a foundational truth of software development.
+The way we develop applications today is different than it was a year ago, 5 years ago, 10 years ago, and certainly 20 years ago, before an initial form of the Spring Framework was introduced in Rod Johnson's book, Expert One-on-One J2EE Design and Development (Wrox, 2002, http://mng.bz/oVjy).
+Back then, the most common types of applications developed were browser-based web applications, backed by relational databases. Although that type of development is still relevant--and Spring is well equipped for those kinds of applications--we're now also interested in developing applications composed of microservices destined for the cloud that persist data in a variety of databases. And a new interest in reactive programming aims to provide greater scalability and improved performance with nonblocking operations.
+3
+Licensed to Zhigang Li <lzg14@qq.com>
+
+4
+
+CHAPTER 1 Getting started with Spring
+
+As software development evolved, the Spring Framework also changed to address modern development concerns, including microservices and reactive programming. The creators of Spring also set out to simplify its development model by introducing Spring Boot.
+Whether you're developing a simple database-backed web application or constructing a modern application built around microservices, Spring is the framework that will help you achieve your goals. This chapter is your first step in a journey through modern application development with Spring.
+1.1 What is Spring?
+I know you're probably itching to start writing a Spring application, and I assure you that before this chapter ends, you'll have developed a simple one. But first, let me set the stage with a few basic Spring concepts that will help you understand what makes Spring tick.
+Any nontrivial application comprises many components, each responsible for its own piece of the overall application functionality, coordinating with the other application elements to get the job done. When the application is run, those components somehow need to be created and introduced to each other.
+At its core, Spring offers a container, often referred to as the Spring application context, that creates and manages application components. These components, or beans, are wired together inside the Spring application context to make a complete application, much like bricks, mortar, timber, nails, plumbing, and wiring are bound together to make a house.
+The act of wiring beans together is based on a pattern known as dependency injection (DI). Rather than have components create and maintain the life cycle of other beans that they depend on, a dependency-injected application relies on a separate entity (the container) to create and maintain all components and inject those into the beans that need them. This is done typically through constructor arguments or property accessor methods.
+For example, suppose that among an application's many components, you will address two: an inventory service (for fetching inventory levels) and a product service (for providing basic product information). The product service depends on the inventory service to be able to provide a complete set of information about products. Figure 1.1 illustrates the relationships between these beans and the Spring application context.
+On top of its core container, Spring and a full portfolio of related libraries offer a web framework, a variety of data persistence options, a security framework, integration with other systems, runtime monitoring, microservice support, a reactive programming model, and many other features necessary for modern application development.
+Historically, the way you would guide Spring's application context to wire beans together was with one or more XML files that described the components and their relationship to other components.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+What is Spring?
+
+5
+
+Spring application context
+
+Inventory service
+
+Injected into
+
+Product service
+
+Other application components also managed by Spring
+
+Figure 1.1 Application components are managed and injected into each other by the Spring application context.
+
+For example, the following XML code declares two beans, an InventoryService bean and a ProductService bean, and wires the InventoryService bean into ProductService via a constructor argument:
+<bean id="inventoryService" class="com.example.InventoryService" />
+<bean id="productService" class="com.example.ProductService" >
+<constructor-arg ref="inventoryService" /> </bean>
+In recent versions of Spring, however, a Java-based configuration is more common. The following Java-based configuration class is equivalent to the XML configuration:
+@Configuration public class ServiceConfiguration {
+@Bean public InventoryService inventoryService() {
+return new InventoryService(); }
+@Bean public ProductService productService() {
+return new ProductService(inventoryService()); } }
+The @Configuration annotation indicates to Spring that this is a configuration class that will provide beans to the Spring application context.
+The configuration's methods are annotated with @Bean, indicating that the objects they return should be added as beans in the application context (where, by default, their respective bean IDs will be the same as the names of the methods that define them).
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+6
+
+CHAPTER 1 Getting started with Spring
+
+Java-based configuration offers several benefits over XML-based configuration, including greater type safety and improved refactorability. Even so, explicit configuration with either Java or XML is necessary only if Spring is unable to automatically configure the components.
+Automatic configuration has its roots in the Spring techniques known as autowiring and component scanning. With component scanning, Spring can automatically discover components from an application's classpath and create them as beans in the Spring application context. With autowiring, Spring automatically injects the components with the other beans that they depend on.
+More recently, with the introduction of Spring Boot, automatic configuration has gone well beyond component scanning and autowiring. Spring Boot is an extension of the Spring Framework that offers several productivity enhancements. The most well known of these enhancements is autoconfiguration, where Spring Boot can make reasonable guesses at what components need to be configured and wired together, based on entries in the classpath, environment variables, and other factors.
+I'd like to show you some example code that demonstrates autoconfiguration, but I can't. Autoconfiguration is much like the wind--you can see the effects of it, but there's no code that I can show you and say "Look! Here's an example of autoconfiguration!" Stuff happens, components are enabled, and functionality is provided without writing code. It's this lack of code that's essential to autoconfiguration and what makes it so wonderful.
+Spring Boot autoconfiguration has dramatically reduced the amount of explicit configuration (whether with XML or Java) required to build an application. In fact, by the time you finish the example in this chapter, you'll have a working Spring application that has only a single line of Spring configuration code!
+Spring Boot enhances Spring development so much that it's hard to imagine developing Spring applications without it. For that reason, this book treats Spring and Spring Boot as if they were one and the same. We'll use Spring Boot as much as possible and explicit configuration only when necessary. And, because Spring XML configuration is the old-school way of working with Spring, we'll focus primarily on Spring's Java-based configuration.
+But enough of this chitchat, yakety-yak, and flimflam. This book's title includes the phrase in action, so let's get moving, so you can start writing your first application with Spring.
+1.2 Initializing a Spring application
+Through the course of this book, you'll create Taco Cloud, an online application for ordering the most wonderful food created by man--tacos. Of course, you'll use Spring, Spring Boot, and a variety of related libraries and frameworks to achieve this goal.
+You'll find several options for initializing a Spring application. Although I could walk you through the steps of manually creating a project directory structure and
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Initializing a Spring application
+
+7
+
+defining a build specification, that's wasted time--time better spent writing application code. Therefore, you're going to lean on the Spring Initializr to bootstrap your application.
+The Spring Initializr is both a browser-based web application and a REST API, which can produce a skeleton Spring project structure that you can flesh out with whatever functionality you want. Several ways to use Spring Initializr follow:
+ From the web application at http://start.spring.io  From the command line using the curl command  From the command line using the Spring Boot command-line interface  When creating a new project with Spring Tool Suite  When creating a new project with IntelliJ IDEA  When creating a new project with Apache NetBeans
+Rather than spend several pages of this chapter talking about each one of these options, I've collected those details in the appendix. In this chapter, and throughout this book, I'll show you how to create a new project using my favorite option: Spring Initializr support in Spring Tool Suite.
+As its name suggests, Spring Tool Suite is a fantastic Spring development environment that comes in the form of extensions for Eclipse, Visual Studio Code, or the Theia IDE. You can download ready-to-run binaries of Spring Tool Suite at https:// spring.io/tools. Spring Tool Suite offers a handy Spring Boot Dashboard feature that makes it easy to start, restart, and stop Spring Boot applications from the IDE.
+If you're not a Spring Tool Suite user, that's fine; we can still be friends. Hop over to the appendix and substitute the Initializr option that suits you best for the instructions in the following sections. But know that throughout this book, I may occasionally reference features specific to Spring Tool Suite, such as the Spring Boot Dashboard. If you're not using Spring Tool Suite, you'll need to adapt those instructions to fit your IDE.
+
+1.2.1
+
+Initializing a Spring project with Spring Tool Suite
+To get started with a new Spring project in Spring Tool Suite, go to the File menu and select New, and then select Spring Starter Project. Figure 1.2 shows the menu structure to look for.
+
+Figure 1.2 Starting a new project with the Initializr in Spring Tool Suite Licensed to Zhigang Li <lzg14@qq.com>
+
+

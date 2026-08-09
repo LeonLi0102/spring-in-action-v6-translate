@@ -1,0 +1,120 @@
+458
+
+CHAPTER 18 Deploying Spring
+
+ When building a WAR file, you should include a class that subclasses SpringBootServletInitializr to ensure that Spring's DispatcherServlet is properly configured.
+ Containerizing Spring applications is as simple as using the Spring Boot build plugin's support for building images. These images can then be deployed anywhere Docker containers can be deployed, including in Kubernetes clusters.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+appendix Bootstrapping Spring applications
+You can kick-start your Spring projects in a lot of ways, and which you choose is largely a matter of personal taste. Many of the choices will be decided by which IDE is your favorite.
+All but one of these options are based on the Spring Initializr, which is a REST API that generates Spring Boot projects for you. The various IDE choices are nothing more than clients for that REST API. Additionally, you have a few ways to use the Spring Initializr API outside of your IDE. This appendix takes a quick look at all of these options.
+A.1 Initializing a project with Spring Tool Suite
+To initialize a new Spring project with Spring Tool Suite, choose the Spring Starter Project menu option from the File > New menu, as shown in figure A.1.
+Figure A.1 Starting a new project in Spring Tool Suite
+NOTE This is an abbreviated description of using Spring Tool Suite to initialize a Spring project. For a more detailed explanation, see section 1.2.1. You'll be shown the first page of the project creation dialog box (figure A.2). On this page, you'll define basic project information, such as the project's name, coordinates
+459
+Licensed to Zhigang Li <lzg14@qq.com>
+
+460
+
+APPENDIX Bootstrapping Spring applications
+
+Figure A.2 Defining basic project information
+(group ID and artifact ID), version, and base package name. You can also specify whether the project will be built with Maven or Gradle, whether the build will produce a JAR file or a WAR file, which version of Java to build with, and even an alternate JVM language to use, such as Groovy or Kotlin.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Initializing a project with Spring Tool Suite
+
+461
+
+The first field on this page asks you to specify the location of the Spring Initializr service. If you're running or using a custom instance of the Initializr, you'll want to specify the base URL of the Initializr service here. Otherwise, you'll be fine leaving it with the default that points to http://start.spring.io.
+After you've defined the basic project information, click Next to see the project dependencies page (see figure A.3).
+
+Figure A.3 Specifying project dependencies Licensed to Zhigang Li <lzg14@qq.com>
+
+462
+
+APPENDIX Bootstrapping Spring applications
+
+On the project dependencies page, you can specify all of the dependencies your project will need. Many of these dependencies are Spring Boot Starter dependencies, although some other dependencies are commonly used in Spring projects.
+The available dependencies are listed on the left side, organized in groups that can be expanded or collapsed. If you're having trouble finding a dependency, you can also search for dependencies to narrow down your choices.
+To add a dependency to the generated project, select the check box next to the dependency name. Your selections will appear in the list on the right side under the Selected header. You can remove a dependency by clicking the X next to the selected dependency, or click Clear Selection to remove all selected dependencies.
+As an added convenience, if you find that you have a certain core set of dependencies that you always (or often) use for your projects, you can click the Make Default button after selecting those dependencies, and they'll already be selected the next time you create a project.
+After making your selections, click Finish to generate the project and add it to your workspace. If, however, you want to use an Initializr other than the one at http:// start.spring.io, click Next to set the Initializr base URL, as shown in figure A.4.
+
+Figure A.4 Optionally specifying the Initializr base URL
+The Base Url field specifies the URL where the Initializr API is listening. This is the only field you can change on this page. The Full Url field shows the complete URL that will be used to request a new project from the Initializr.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Initializing a project with IntelliJ IDEA
+
+463
+
+A.2 Initializing a project with IntelliJ IDEA
+To get started on a new Spring project in IntelliJ IDEA, choose the Project menu item from the File > New menu, as shown in figure A.5.
+
+Figure A.5 Starting a new Spring project in IntelliJ IDEA
+This opens up the first page of a new Spring Initializr project wizard. You'll be presented with a page that asks for essential project information, as shown in figure A.6.
+
+Figure A.6 Specifying essential project information in IntelliJ IDEA Licensed to Zhigang Li <lzg14@qq.com>
+
+464
+
+APPENDIX Bootstrapping Spring applications
+
+You may recognize some of the fields on this page as information that might appear in a Maven pom.xml file--in fact, if you select Maven Project from the Type field, that's exactly how it will be used. You're welcome to choose Gradle Project instead if Gradle is your preference.
+Once you've filled in the essential project information, click Next to be shown the project dependencies page (see figure A.7).
+
+Figure A.7 Selecting project dependencies
+The dependencies are organized by category in the far-left list. Selecting a category will result in that category's options being presented in the middle list. Your selected dependencies will be listed (according to category) in the right list.
+After all of your dependencies have been selected, click Finish. Your project will be created and loaded into the IntelliJ IDEA workspace.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Initializing a project with NetBeans
+
+465
+
+A.3 Initializing a project with NetBeans
+Before you can create a new Spring Boot project in NetBeans, you need to install a plugin that enables Spring Boot development in NetBeans. The NB Spring Boot plugin adds features to NetBeans that are similar to those built into Spring ToolSuite and IntelliJ IDEA.
+To install the plugin, select the Plugins option from the Tools menu, as shown in figure A.8.
+
+Figure A.8 The NetBeans Plugins menu item
+You'll be shown a list of available plugins for NetBeans, including the NB Spring Boot plugin, as shown in figure A.9.
+
+Figure A.9 Selecting the NB Spring Boot plugin Licensed to Zhigang Li <lzg14@qq.com>
+
+466
+
+APPENDIX Bootstrapping Spring applications
+
+Click Install to begin the installation of the Spring Boot plugin. You'll be prompted with a handful of dialogs to confirm your decision and to acknowledge the plugin license agreement. Simply click Next through them all until you get to the last one, then click Install. Finally, you'll be prompted to restart NetBeans for the plugin to take effect.
+After installing the Spring Boot plugin, you are ready to initialize a new Spring Boot project in NetBeans. To create a new Spring project in NetBeans, start by selecting the New Project menu item under the File menu, as shown in figure A.10.
+
+Figure A.10 Starting a new Spring project in NetBeans
+You'll be shown the first page of the new project wizard. As shown in figure A.11, this page will let you choose what kind of project you want to create.
+For a Spring Boot project, select Java with Maven from the category list on the left, and then select Spring Boot Initializr Project from the project list on the right. Then click Next to move to the next page.
+The second page in the new project wizard (figure A.12) lets you set essential project information, such as the project name, version, and other information that will ultimately be used to define the project in a Maven pom.xml file.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+Initializing a project with NetBeans
+
+467
+
+Figure A.11 Creating a new Spring Boot Initializr project
+Figure A.12 Specifying essential project information Licensed to Zhigang Li <lzg14@qq.com>
+
+468
+
+APPENDIX Bootstrapping Spring applications
+
+After you've specified the basic project information, click Next to navigate to the dependencies page in the new project wizard, shown in figure A.13.
+
+Figure A.13 Selecting project dependencies
+Dependencies are all listed as check boxes in the same list, organized by category. If you have trouble finding the specific dependency you need, you can use the Filter text box at the top to limit the list of options.
+You can also specify which version of Spring Boot you wish to use on this page. It will be set to the current generally available version of Spring Boot by default.
+Once you've selected the dependencies for your project, click Next to navigate to the last page of the new project wizard, shown in figure A.14. This page lets you specify some final details about the project, including the project name and location on the filesystem. (The Project Folder field is read only and derived from the other two fields.) It also gives you the option to run and debug your project through the Maven Spring Boot plugin instead of through NetBeans. You may also choose to have NetBeans remove the Maven wrapper from the generated project.
+Licensed to Zhigang Li <lzg14@qq.com>
+
+

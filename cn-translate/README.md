@@ -1,16 +1,10 @@
-# Spring 实战 (第 6 版) MEAP
-
-# 收到人民邮电出版社编辑邮件，要求7个工作日内关闭本项目，停止侵权行为。
-# 本项目将于2022-01-28正式关闭
-
+# Spring 实战 (第 6 版)
 
 ![](./assets/00-Walls-Spring-6ed-MEAP-HI.png)
 
-Spring 实战（第 6 版）预计将于 2022 年 2 月出版。现在的翻译基于 Manning 出版社的 MEAP 版本。
+Spring 实战（第 6 版）已正式出版。本翻译基于 Manning 出版社的正式版本。
 
 地址：https://www.manning.com/books/spring-in-action-sixth-edition
-
-LiveBook: https://livebook.manning.com/book/spring-in-action-sixth-edition/welcome/v-7/6
 
 ## 强烈推荐您购买此书
 ## 尊重作者，保护版权

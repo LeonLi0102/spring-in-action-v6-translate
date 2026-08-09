@@ -1,0 +1,16 @@
+preface
+Spring entered the development world more than 18 years ago with the fundamental mission of making Java application development easier. Originally, that meant offering a lightweight alternative to EJB 2.x. But Spring was just getting started. Over the years, Spring expanded its mission of simplicity to address common development challenges, including persistence, security, integration, cloud computing, and others.
+Although Spring is closing in on two decades of enabling and simplifying enterprise Java development, it shows no signs of slowing down. Spring continues to address Java development challenges, whether it be creating an application deployed to a conventional application server or a containerized application deployed to a Kubernetes cluster in the cloud. And with Spring Boot providing autoconfiguration, build dependency help, and runtime monitoring, there has never been a better time to be a Spring developer!
+This edition of Spring in Action is your guide to Spring and Spring Boot and has been updated to reflect the best of what both have to offer. Even if you're new to Spring, you'll have your first Spring application up and running before the end of the first chapter. As the book progresses, you'll learn how to create web applications, work with data, secure your application, and manage application configuration. Next, you'll explore options for integrating your Spring applications with other applications and how to benefit from reactive programming in your Spring applications, including the new RSocket communication protocol. As the book draws to a close, you'll see how to prepare your application for production and learn options for deploying.
+xvii
+Licensed to Zhigang Li <lzg14@qq.com>
+
+xviii
+
+PREFACE
+
+Whether you're new to Spring or have many years of Spring development to your credit, this is your next step in your journey. I'm excited for you and happy to bring this guide to you. I look forward to seeing what you create with Spring!
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+

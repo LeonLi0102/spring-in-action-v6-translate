@@ -1,0 +1,63 @@
+about this book
+Spring in Action, Sixth Edition, was written to equip you to build amazing applications using the Spring Framework, Spring Boot, and a variety of ancillary members of the Spring ecosystem. It begins by showing you how to develop web-based, databasebacked Java applications with Spring and Spring Boot. It then expands on the essentials by showing how to integrate with other applications and programs using reactive types. Finally, it discusses how to ready an application for deployment.
+Although all of the projects in the Spring ecosystem provide excellent documentation, this book does something that none of the reference documents do: provide a hands-on, project-driven guide to bringing the elements of Spring together and build a real application.
+Who should read this book Spring in Action, Sixth Edition, is for Java developers who want to get started with Spring Boot and the Spring Framework as well as for seasoned Spring developers who want to go beyond the basics and learn the newest features of Spring.
+How this book is organized: A roadmap The book has four parts spanning 18 chapters. Part 1 covers the foundational topics of building Spring applications:
+ Chapter 1 introduces Spring and Spring Boot and how to initialize a Spring project. In this chapter, you'll take the first steps toward building a Spring application that you'll expand on throughout the course of the book.
+xxi
+Licensed to Zhigang Li <lzg14@qq.com>
+
+xxii
+
+ABOUT THIS BOOK
+
+ Chapter 2 discusses building the web layer of an application using Spring MVC. In this chapter, you'll build controllers that handle web requests and views that render information in the web browser.
+ Chapter 3 delves into the backend of a Spring application, where data is persisted to a relational database.
+ Chapter 4 continues the subject of data persistence by looking at how to persist data to nonrelational databases, specifically, Cassandra and MongoDB.
+ In chapter 5, you'll use Spring Security to authenticate users and prevent unauthorized access to an application.
+ Chapter 6 reveals how to configure a Spring application using Spring Boot configuration properties. You'll also learn how to selectively apply configuration using profiles.
+Part 2 covers topics that help integrate your Spring application with other applications:
+ Chapter 7 expands on the discussion of Spring MVC started in chapter 2, by looking at how to write and consume REST APIs in Spring.
+ Chapter 8 shows how to secure the APIs created in chapter 7, with Spring Security and OAuth 2.
+ Chapter 9 looks at using asynchronous communication to enable a Spring application to both send and receive messages using the Java Message Service, RabbitMQ, or Kafka.
+ Chapter 10 discusses declarative application integration using the Spring Integration project.
+Part 3 explores the exciting new support for reactive programming in Spring:
+ Chapter 11 introduces Project Reactor, the reactive programming library that underpins Spring 5's reactive features.
+ Chapter 12 revisits REST API development, introducing Spring WebFlux, a new web framework that borrows much from Spring MVC while offering a new reactive model for web development.
+ Chapter 13 takes a look at writing reactive data persistence with Spring Data to read and write data to Cassandra and Mongo databases.
+ Chapter 14 introduces RSocket, a new communication protocol that offers a reactive alternative to HTTP for creating APIs.
+In part 4, you'll ready an application for production and see how to deploy it:
+ Chapter 15 introduces the Spring Boot Actuator, an extension to Spring Boot that exposes the internals of a running Spring application as REST endpoints.
+ In chapter 16, you'll see how to use Spring Boot Admin to put a user-friendly browser-based administrative application on top of the Actuator.
+ Chapter 17 discusses how to expose and consume Spring beans as JMX MBeans.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+ABOUT THIS BOOK
+
+xxiii
+
+ Finally, in chapter 18, you'll see how to deploy your Spring application in a variety of production environments, including Kubernetes.
+In general, developers new to Spring should start with chapter 1 and work through each chapter sequentially. Experienced Spring developers may prefer to jump in at any point that interests them. Even so, each chapter builds on the previous one, so there may be some context missing if you dive into the middle of the book.
+About the code
+This book contains many examples of source code, both in numbered listings and inline with normal text. In both cases, source code is formatted in a fixed-width font like this to separate it from ordinary text.
+In many cases the original source code has been reformatted; we've added line breaks and reworked indentation to accommodate the available page space in the book. In rare cases, even this was not enough, and listings include line-continuation markers (). Additionally, comments in the source code have often been removed from the listings when the code is described in the text. Code annotations accompany many of the listings, highlighting important concepts.
+You can get executable snippets of code from the liveBook (online) version of this book at https://livebook.manning.com/book/spring-in-action-sixth-edition. The complete code for the examples in the book is available for download from the Manning website at https://www.manning.com/books/spring-in-action-sixth-edition, and from GitHub at github.com/habuma/spring-in-action-6-samples.
+Book forum
+Purchase of Spring in Action, Sixth Edition, includes free access to liveBook, Manning's online reading platform. Using liveBook's exclusive discussion features, you can attach comments to the book globally or to specific sections or paragraphs. It's a snap to make notes for yourself, ask and answer technical questions, and receive help from the author and other users. To access the forum, go to https://forums.manning.com/ forums/spring-in-action-sixth-edition. You can also learn more about Manning's forums and the rules of conduct at https://forums.manning.com/forums/about.
+Manning's commitment to our readers is to provide a venue where a meaningful dialogue between individual readers and between readers and the author can take place. It is not a commitment to any specific amount of participation on the part of the author, whose contribution to the forum remains voluntary (and unpaid). We suggest you try asking the author some challenging questions lest his interest stray! The forum and the archives of previous discussions will be accessible from the publisher's website as long as the book is in print.
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+xxiv
+
+ABOUT THIS BOOK
+
+Other online resources
+Need additional help?
+ The Spring website has several useful getting-started guides (some of which were written by the author of this book) at https://spring.io/guides.
+ The Spring tag at Stack Overflow (https://stackoverflow.com/questions/tagged/ spring) as well as the Spring Boot tag at Stack Overflow (https://stackoverflow .com/questions/tagged/spring-boot) are great places to ask questions and help others with Spring. Helping someone else with their Spring questions is a great way to learn Spring!
+
+Licensed to Zhigang Li <lzg14@qq.com>
+
+
