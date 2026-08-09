@@ -214,17 +214,17 @@ dependencies 参数可能是最有用的。例如，假设你想创建一个简�
 
 ```bash
 % curl https://start.spring.io/starter.zip \
-      -d dependencies=web \
-      -o demo.zip
+ -d dependencies=web \
+ -o demo.zip
 ```
 
 作为一个更复杂的例子，假设你想开发一个使用 Spring Data JPA 进行数据持久化的 Web 应用程序。你还想使用 Gradle 构建，项目应该位于 zip 文件中名为 my-dir 的目录下。并且假设你不想只下载 zip 文件，而是希望在下载时将项目解压到文件系统中。在这种情况下，以下命令应该可以完成任务：
 
 ```bash
 % curl https://start.spring.io/starter.tgz \
-       -d dependencies=web,data-jpa \
-       -d type=gradle-project \
-       -d baseDir=my-dir | tar -xzvf -
+ -d dependencies=web,data-jpa \
+ -d type=gradle-project \
+ -d baseDir=my-dir | tar -xzvf -
 ```
 
 在这里，下载的 zip 文件通过管道传递给 tar 命令进行解压。
