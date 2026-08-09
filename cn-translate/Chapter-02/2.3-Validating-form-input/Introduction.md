@@ -6,7 +6,7 @@
 
 执行表单验证的一种方法是在 `processDesign()` 和 `processOrder()` 方法中加入一堆 if/then 块，检查每个字段以确保它满足适当的验证规则。但是这样做会很麻烦，并且难于阅读和调试。
 
-幸运的是，Spring 支持 Java's Bean Validation API（也称为 JSR-303；[https://jcp.org/en/jsr/detail?id=303](https://jcp.org/en/jsr/detail?id=303)）。这使得声明验证规则比在应用程序代码中显式地编写声明逻辑更容易。使用 Spring Boot，不需要做任何特殊的事情来将验证库添加到项目中，因为 Validation API 和 Validation API 的 Hibernate 实现作为Spring Boot web 启动程序的临时依赖项自动添加到了项目中。
+幸运的是，Spring 支持 Java's Bean Validation API（也称为 JSR-303；[https://jcp.org/en/jsr/detail?id=303](https://jcp.org/en/jsr/detail?id=303)）。这使得声明验证规则比在应用程序代码中显式地编写声明逻辑更容易。使用 Spring Boot，不需要做任何特殊的事情来将验证库添加到项目中，因为 Validation API 和 Validation API 的 Hibernate 实现作为 Spring Boot web 启动程序的临时依赖项自动添加到了项目中。
 
 要在 Spring MVC 中应用验证，需要这样做：
 
@@ -19,8 +19,8 @@ Validation API 提供了几个可以放在域对象属性上声明验证规则�
 
 ```xml
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-validation</artifactId>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-validation</artifactId>
 </dependency>
 ```
 

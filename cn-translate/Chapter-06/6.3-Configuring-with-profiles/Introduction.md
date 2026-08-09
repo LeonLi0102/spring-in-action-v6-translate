@@ -18,8 +18,8 @@
 
 ```yaml
 logging:
-  level:
-    tacos: DEBUG
+ level:
+ tacos: DEBUG
 ```
 
 这正是开发目的所需要的。但是，如果要将此应用程序部署到生产环境中，而不需要对 application.yml 进行进一步更改，仍然可以获得对于 tacos 包的调试日志和嵌入式 H2 数据库。需要的是定义一个具有适合生产的属性的 profile 文件。

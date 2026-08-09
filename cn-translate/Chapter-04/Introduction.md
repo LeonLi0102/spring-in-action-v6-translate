@@ -15,7 +15,7 @@
 幸运的是，Spring Data 支持了许多 NoSQL 数据库，包括 MongoDB、Cassandra、Couchbase、Neo4j、Redis 等等。而且幸运的是，
 无论选择哪个数据库，编程模型几乎是相同的。
 
-本章没有足够的篇幅涵盖 Spring Data 支持的所有数据库类型。但为了让您了解 Spring Data 的其他“风味”，我们将研究两种流行的 NoSQL 数据库，Cassandra 和 MongoDB，并了解如何创建 Repository 进行数据持久化。让我们先看看如何使用 Spring Data 创建Cassandra Repository。
+本章没有足够的篇幅涵盖 Spring Data 支持的所有数据库类型。但为了让您了解 Spring Data 的其他“风味”，我们将研究两种流行的 NoSQL 数据库，Cassandra 和 MongoDB，并了解如何创建 Repository 进行数据持久化。让我们先看看如何使用 Spring Data 创建 Cassandra Repository。
 
 
 

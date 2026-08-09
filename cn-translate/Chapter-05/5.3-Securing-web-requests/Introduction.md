@@ -7,7 +7,7 @@ Taco Cloud 的安全需求应该要求用户在设计 tacos 或下订单之前�
 ```java
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-  return http.build();
+ return http.build();
 }
 ```
 

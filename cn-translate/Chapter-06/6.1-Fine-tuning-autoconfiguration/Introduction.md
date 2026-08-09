@@ -10,11 +10,11 @@
 ```java
 @Bean
 public DataSource dataSource() {
-  return new EmbeddedDatabaseBuilder()
-    .setType(H2)
-    .addScript("taco_schema.sql")
-    .addScripts("user_data.sql", "ingredient_data.sql")
-    .build();
+ return new EmbeddedDatabaseBuilder()
+ .setType(H2)
+ .addScript("taco_schema.sql")
+ .addScripts("user_data.sql", "ingredient_data.sql")
+ .build();
 }
 ```
 

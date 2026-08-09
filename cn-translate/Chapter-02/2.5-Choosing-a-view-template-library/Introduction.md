@@ -22,8 +22,8 @@
 
 ```xml
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
 ```
 
@@ -31,8 +31,8 @@
 
 ```xml
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-mustache</artifactId>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-mustache</artifactId>
 </dependency>
 ```
 
@@ -42,8 +42,8 @@
 <h3>Designate your wrap:</h3>
 {{#wrap}}
 <div>
-  <input name="ingredients" type="checkbox" value="{{id}}" />
-  <span>{{name}}</span><br/>
+ <input name="ingredients" type="checkbox" value="{{id}}" />
+ <span>{{name}}</span><br/>
 </div>
 {{/wrap}}
 ```

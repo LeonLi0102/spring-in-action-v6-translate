@@ -15,10 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig {
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-  return new BCryptPasswordEncoder();
-  }
+ @Bean
+ public PasswordEncoder passwordEncoder() {
+ return new BCryptPasswordEncoder();
+ }
 
 }
 ```
@@ -41,13 +41,13 @@ Spring Security 提供的密码编码器之一，包括：
 ```java
 public interface UserDetailsService {
 
-  UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+ UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
 }
 
 ```
 
-`loadUserByUsername()` 方法接受用户名并使用它查找 UserDetails 对象，如果找不到给定用户名的用户，则会抛出UsernameNotFoundException。
+`loadUserByUsername()` 方法接受用户名并使用它查找 UserDetails 对象，如果找不到给定用户名的用户，则会抛出 UsernameNotFoundException。
 
 事实证明，Spring Security 提供了几个 UserDetailsService 实现，可以开箱即用。包括：
 

@@ -9,12 +9,12 @@
 ```java
 @GetMapping
 public String ordersForUser(
-    @AuthenticationPrincipal User user, Model model) {
+ @AuthenticationPrincipal User user, Model model) {
 
-  model.addAttribute("orders",
-    orderRepo.findByUserOrderByPlacedAtDesc(user));
+ model.addAttribute("orders",
+ orderRepo.findByUserOrderByPlacedAtDesc(user));
 
-  return "orderList";
+ return "orderList";
 }
 ```
 
@@ -31,13 +31,13 @@ List<Order> findByUserOrderByPlacedAtDesc(User user);
 ```java
 @GetMapping
 public String ordersForUser(
-    @AuthenticationPrincipal User user, Model model) {
+ @AuthenticationPrincipal User user, Model model) {
 
-  Pageable pageable = PageRequest.of(0, 20);
-  model.addAttribute("orders",
-      orderRepo.findByUserOrderByPlacedAtDesc(user, pageable));
+ Pageable pageable = PageRequest.of(0, 20);
+ model.addAttribute("orders",
+ orderRepo.findByUserOrderByPlacedAtDesc(user, pageable));
 
-  return "orderList";
+ return "orderList";
 }
 ```
 
@@ -45,7 +45,7 @@ public String ordersForUser(
 
 ```java
 List<TacoOrder> findByUserOrderByPlacedAtDesc(
-      User user, Pageable pageable);
+ User user, Pageable pageable);
 ```
 
 这里，已经更改了 `findByUserOrderByPlacedAtDesc()` 方法的签名，以接受可分页的参数。可分页是 Spring Data 通过页码和页面大小选择结果子集的方式。在 `ordersForUser()` 控制器方法中，构建了一个 PageRequest 对象，该对象实现了 Pageable 来请求第一个页面（page zero），页面大小为 20，以便为用户获得最多 20 个最近下的订单。
@@ -62,23 +62,23 @@ List<TacoOrder> findByUserOrderByPlacedAtDesc(
 @ConfigurationProperties(prefix="taco.orders")
 public class OrderController {
 
-  private int pageSize = 20;
+ private int pageSize = 20;
 
-  public void setPageSize(int pageSize) {
-    this.pageSize = pageSize;
-  }
+ public void setPageSize(int pageSize) {
+ this.pageSize = pageSize;
+ }
 
-  ...
+ ...
 
-  @GetMapping
-  public String ordersForUser(
-        @AuthenticationPrincipal User user, Model model) {
+ @GetMapping
+ public String ordersForUser(
+ @AuthenticationPrincipal User user, Model model) {
 
-    Pageable pageable = PageRequest.of(0, pageSize);
-    model.addAttribute("orders",
-        orderRepo.findByUserOrderByPlacedAtDesc(user, pageable));
-    return "orderList";
-  }
+ Pageable pageable = PageRequest.of(0, pageSize);
+ model.addAttribute("orders",
+ orderRepo.findByUserOrderByPlacedAtDesc(user, pageable));
+ return "orderList";
+ }
 }
 ```
 
@@ -88,8 +88,8 @@ public class OrderController {
 
 ```yaml
 taco:
-  orders:
-    pageSize: 10
+ orders:
+ pageSize: 10
 ```
 
 或者，如果需要在生产环境中进行快速更改，可以通过设置 taco.orders.pageSize 属性作为环境变量来重新构建和重新部署应用程序：

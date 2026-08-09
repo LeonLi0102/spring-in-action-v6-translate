@@ -13,43 +13,43 @@ Spring JDBC 支持起源于 JdbcTemplate 类。JdbcTemplate 提供了一种方�
 ```java
 @Override
 public Optional<Ingredient> findById(String id) {
-  Connection connection = null;
-  PreparedStatement statement = null;
-  ResultSet resultSet = null;
-  try {
-    connection = dataSource.getConnection();
-    statement = connection.prepareStatement(
-        "select id, name, type from Ingredient");
-    statement.setString(1, id);
-    resultSet = statement.executeQuery();
-    Ingredient ingredient = null;
-    if(resultSet.next()) {
-      ingredient = new Ingredient(
-        resultSet.getString("id"),
-        resultSet.getString("name"),
-        Ingredient.Type.valueOf(resultSet.getString("type")));
-    }
-    return Optional.of(ingredient);
-  } catch (SQLException e) {
-    // ??? What should be done here ???
-  } finally {
-    if (resultSet != null) {
-      try {
-        resultSet.close();
-      } catch (SQLException e) {}
-    }
-    if (statement != null) {
-      try {
-        statement.close();
-      } catch (SQLException e) {}
-    }
-    if (connection != null) {
-      try {
-        connection.close();
-      } catch (SQLException e) {}
-    }
-  }
-  return null;
+ Connection connection = null;
+ PreparedStatement statement = null;
+ ResultSet resultSet = null;
+ try {
+ connection = dataSource.getConnection();
+ statement = connection.prepareStatement(
+ "select id, name, type from Ingredient");
+ statement.setString(1, id);
+ resultSet = statement.executeQuery();
+ Ingredient ingredient = null;
+ if(resultSet.next()) {
+ ingredient = new Ingredient(
+ resultSet.getString("id"),
+ resultSet.getString("name"),
+ Ingredient.Type.valueOf(resultSet.getString("type")));
+ }
+ return Optional.of(ingredient);
+ } catch (SQLException e) {
+ // ??? What should be done here ???
+ } finally {
+ if (resultSet != null) {
+ try {
+ resultSet.close();
+ } catch (SQLException e) {}
+ }
+ if (statement != null) {
+ try {
+ statement.close();
+ } catch (SQLException e) {}
+ }
+ if (connection != null) {
+ try {
+ connection.close();
+ } catch (SQLException e) {}
+ }
+ }
+ return null;
 }
 ```
 
@@ -65,20 +65,20 @@ SQLException 是一个被检查的异常，它需要在 catch 块中进行处理
 private JdbcTemplate jdbcTemplate;
 
 public Optional<Ingredient> findById(String id) {
-  List<Ingredient> results = jdbcTemplate.query(
-    "select id, name, type from Ingredient where id=?",
-    this::mapRowToIngredient,
-    id);
-  return results.size() == 0 ?
-      Optional.empty() :
-      Optional.of(results.get(0));
+ List<Ingredient> results = jdbcTemplate.query(
+ "select id, name, type from Ingredient where id=?",
+ this::mapRowToIngredient,
+ id);
+ return results.size() == 0 ?
+ Optional.empty() :
+ Optional.of(results.get(0));
 }
 private Ingredient mapRowToIngredient(ResultSet row, int rowNum)
-    throws SQLException {
-  return new Ingredient(
-    row.getString("id"),
-    row.getString("name"),
-    Ingredient.Type.valueOf(row.getString("type")));
+ throws SQLException {
+ return new Ingredient(
+ row.getString("id"),
+ row.getString("name"),
+ Ingredient.Type.valueOf(row.getString("type")));
 }
 ```
 
