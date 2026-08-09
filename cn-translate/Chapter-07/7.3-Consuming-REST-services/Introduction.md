@@ -23,11 +23,11 @@ Spring 应用程序可以通过以下方式使用 REST API：
 
 RestTemplate 提供了 41 个与 REST 资源交互的方法。与其检查它提供的所有方法，不如只考虑 12 个惟一的操作，每个操作都有重载，以形成 41 个方法的完整集合。表 7.2 描述了 12 种操作。
 
-**表 7.2 RestTemplate 定义的 12 个唯一操作，每一个都重载了，共提供41种方法（未完待续）**
+**表 7.2 RestTemplate 定义的 12 个唯一操作，每一个都重载了，共提供 41 种方法（未完待续）**
 
 | 方法 | 描述 |
 | :--- | :--- |
-| delete(...) | 对指定 URL 上的资源执行 HTTP DELETE请求 |
+| delete(...) | 对指定 URL 上的资源执行 HTTP DELETE 请求 |
 | exchange(...) | 对 URL 执行指定的 HTTP 方法，返回一个 ResponseEntity，其中包含从响应体映射的对象 |
 | execute(...) | 对 URL 执行指定的 HTTP 方法，返回一个映射到响应体的对象 |
 | getForEntity(...) | 发送 HTTP GET 请求，返回一个 ResponseEntity，其中包含从响应体映射的对象 |
@@ -38,7 +38,7 @@ RestTemplate 提供了 41 个与 REST 资源交互的方法。与其检查它提
 | postForEntity(...) | 将数据 POST 到一个 URL，返回一个 ResponseEntity，其中包含从响应体映射而来的对象 |
 | postForLocation(...) | 将数据 POST 到一个 URL，返回新创建资源的 URL |
 | postForObject(...) | 将数据 POST 到一个 URL，返回从响应主体映射的对象 |
-| put(...) | 将资源数据 PUT 到指定的URL |
+| put(...) | 将资源数据 PUT 到指定的 URL |
 
 除了 TRACE 之外，RestTemplate 对于每个标准 HTTP 方式至少有一个方法。此外，`execute()` 和 `exchange()` 为使用任何 HTTP 方式发送请求提供了低层的通用方法。
 
@@ -61,7 +61,7 @@ RestTemplate rest = new RestTemplate();
 ```java
 @Bean
 public RestTemplate restTemplate() {
-  return new RestTemplate();
+ return new RestTemplate();
 }
 ```
 

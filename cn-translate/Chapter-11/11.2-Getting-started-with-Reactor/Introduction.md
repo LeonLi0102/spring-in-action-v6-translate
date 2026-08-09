@@ -17,9 +17,9 @@ System.out.println(greeting);
 
 ```java
 Mono.just("Craig")
-    .map(n -> n.toUpperCase())
-    .map(cn -> "Hello, " + cn + "!")
-    .subscribe(System.out::println);
+ .map(n -> n.toUpperCase())
+ .map(cn -> "Hello, " + cn + "!")
+ .subscribe(System.out::println);
 ```
 
 不要太担心这个例子中的细节；我们很快将讨论所有关于 `just()`、`map()` 和 `subscribe()` 的操作。就目前而言，要了解的是，虽然响应式的例子似乎仍然遵循一步一步的模式，但是这确实是一个用于数据流的管道。在管道的每个阶段，数据被以某种方式修改了，但是不能知道哪一步操作被哪一个线程执行了的。它们可能在同一个线程也可能不是。

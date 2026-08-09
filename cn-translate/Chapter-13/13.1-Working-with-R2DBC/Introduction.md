@@ -8,8 +8,8 @@ Spring Data R2DBC 是 Spring Data 的一个子项目。它支持 R2DBC，与我�
 
 ```xml
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-data-r2dbc</artifactId>
 </dependency>
 ```
 
@@ -19,14 +19,14 @@ Spring Data R2DBC 是 Spring Data 的一个子项目。它支持 R2DBC，与我�
 
 ```xml
 <dependency>
-  <groupId>com.h2database</groupId>
-  <artifactId>h2</artifactId>
-  <scope>runtime</scope>
+ <groupId>com.h2database</groupId>
+ <artifactId>h2</artifactId>
+ <scope>runtime</scope>
 </dependency>
 <dependency>
-  <groupId>io.r2dbc</groupId>
-  <artifactId>r2dbc-h2</artifactId>
-  <scope>runtime</scope>
+ <groupId>io.r2dbc</groupId>
+ <artifactId>r2dbc-h2</artifactId>
+ <scope>runtime</scope>
 </dependency>
 ```
 

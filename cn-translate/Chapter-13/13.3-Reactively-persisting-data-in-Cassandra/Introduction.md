@@ -4,8 +4,8 @@
 
 ```xml
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-data-cassandra-reactive</artifactId>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-data-cassandra-reactive</artifactId>
 </dependency>
 ```
 
@@ -15,13 +15,13 @@
 
 ```yaml
 spring:
-  data:
-    rest:
-      base-path: /data-api
-    cassandra:
-      keyspace-name: tacocloud
-      schema-action: recreate
-      local-datacenter: datacenter1
+ data:
+ rest:
+ base-path: /data-api
+ cassandra:
+ keyspace-name: tacocloud
+ schema-action: recreate
+ local-datacenter: datacenter1
 ```
 
 这与我们在第 4 章中使用非响应式 Cassandra Repository 时使用的 YAML 配置完全相同。需要注意的是 keyspace-name，需要在 Cassandra 集群中创建具有该名称的键空间。
@@ -31,7 +31,7 @@ spring:
 ```bash
 $ docker network create cassandra-net
 $ docker run --name my-cassandra --network cassandra-net \
-        -p 9042:9042 -d cassandra:latest
+ -p 9042:9042 -d cassandra:latest
 ```
 
 如果您的 Cassandra 群集位于另一台计算机或其他端口上，则需要在 application.yml 中指定接连接信息，如第 4 章所示。

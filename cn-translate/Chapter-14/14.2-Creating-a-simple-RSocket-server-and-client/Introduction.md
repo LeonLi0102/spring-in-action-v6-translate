@@ -5,8 +5,8 @@ Spring 为 RSocket 的消息传递提供了非常好的支持，包括所有四�
 **清单 14.1 Spring Boot 的 RSocket stater 依赖项**
 ```xml
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-rsocket</artifactId>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-rsocket</artifactId>
 </dependency>
 ```
 

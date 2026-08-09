@@ -17,7 +17,7 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 
 Dockerfile 描述了如何创建容器镜像。上面的示例非常简单，让我们逐行进行说明：
 
-* 第 1 行：声明我们创建的镜像，将基于预定义的容器镜像，它提供了 Open JDK11 Java运行时。
+* 第 1 行：声明我们创建的镜像，将基于预定义的容器镜像，它提供了 Open JDK11 Java 运行时。
 * 第 2 行：创建一个变量，该变量引用项目 target 目录中的所有 JAR 文件。对于大多数 Maven 构建项目，其中应该只有一个 JAR 文件。通过使用通配符，可将 Dockerfile 定义与 JAR 文件的名称和版本分离。JAR 文件的路径也假定了 Dockerfile 位于 Maven 项目的根目录中。
 * 第 3 行：将 JAR 文件从项目的 target 目录复制到容器镜像中，名称为“app.jar”。
 * 第 4 行：定义一个入口点，也就是说，定义了由镜像生成容器，在启动时要执行的命令。这里是使用 java -jar /app.jar 执行 JAR 文件。
@@ -78,7 +78,7 @@ $ docker run -p8080:8080 library/tacocloud:0.0.19-SNAPSHOT
 
 ```bash
 $ mvnw spring-boot:build-image \
-    -Dspring-boot.build-image.imageName=tacocloud/tacocloud:0.0.19-SNAPSHOT
+ -Dspring-boot.build-image.imageName=tacocloud/tacocloud:0.0.19-SNAPSHOT
 ```
 
 对于 Gradle 构建的项目，它稍微简单一些。您可以使用 --imageName 参数，如下所示：
@@ -93,13 +93,13 @@ $ gradlew bootBuildImage --imageName=tacocloud/tacocloud:0.0.19-SNAPSHOT
 
 ```xml
 <plugin>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-maven-plugin</artifactId>
-  <configuration>
-    <image>
-      <name>tacocloud/${project.artifactId}:${project.version}</name>
-    </image>
-  </configuration>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-maven-plugin</artifactId>
+ <configuration>
+ <image>
+ <name>tacocloud/${project.artifactId}:${project.version}</name>
+ </image>
+ </configuration>
 </plugin>
 ```
 
@@ -109,7 +109,7 @@ $ gradlew bootBuildImage --imageName=tacocloud/tacocloud:0.0.19-SNAPSHOT
 
 ```yaml
 bootBuildImage {
-  imageName = "habuma/${rootProject.name}:${version}"
+ imageName = "habuma/${rootProject.name}:${version}"
 }
 ```
 

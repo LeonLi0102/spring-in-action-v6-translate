@@ -6,12 +6,12 @@
 
 ```xml
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-integration</artifactId>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-integration</artifactId>
 </dependency>​
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-integration-file</artifactId>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-integration-file</artifactId>
 </dependency>
 ```
 
@@ -32,9 +32,9 @@ import org.springframework.messaging.handler.annotation.Header;
 @MessagingGateway(defaultRequestChannel="textInChannel")
 public interface FileWriterGateway {
 
-  void writeToFile(
-      @Header(FileHeaders.FILENAME) String filename,
-      String data);
+ void writeToFile(
+ @Header(FileHeaders.FILENAME) String filename,
+ String data);
 
 }
 ```

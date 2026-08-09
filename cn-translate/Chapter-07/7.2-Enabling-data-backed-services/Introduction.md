@@ -2,14 +2,14 @@
 
 正如在第 3 章中看到的，Spring Data 拥有一种特殊的魔力，它根据在代码中定义的接口自动创建存储库的实现。但是 Spring Data 还有另一个技巧，可以为应用程序定义 API。
 
-Spring Data REST 是 Spring Data 家族中的另一个成员，它为 Spring Data 创建的存储库自动创建REST API。只需将 Spring Data REST 添加到构建中，就可以获得一个 API，其中包含所定义的每个存储库接口的操作。
+Spring Data REST 是 Spring Data 家族中的另一个成员，它为 Spring Data 创建的存储库自动创建 REST API。只需将 Spring Data REST 添加到构建中，就可以获得一个 API，其中包含所定义的每个存储库接口的操作。
 
 要开始使用 Spring Data REST，需要在构建中添加以下依赖项：
 
 ```markup
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-data-rest</artifactId>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-data-rest</artifactId>
 </dependency>
 ```
 
@@ -24,30 +24,30 @@ Spring Data REST 创建的 REST 端点至少与自己创建的端点一样好（
 ```bash
 $ curl localhost:8080/ingredients
 {
-  "_embedded" : {
-    "ingredients" : [ {
-      "name" : "Flour Tortilla",
-      "type" : "WRAP",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/ingredients/FLTO"
-        },
-        "ingredient" : {
-          "href" : "http://localhost:8080/ingredients/FLTO"
-        }
-      }
-    },
-    ...
-    ]
-  },
-  "_links" : {
-    "self" : {
-      "href" : "http://localhost:8080/ingredients"
-    },
-    "profile" : {
-      "href" : "http://localhost:8080/profile/ingredients"
-    }
-  }
+ "_embedded" : {
+ "ingredients" : [ {
+ "name" : "Flour Tortilla",
+ "type" : "WRAP",
+ "_links" : {
+ "self" : {
+ "href" : "http://localhost:8080/ingredients/FLTO"
+ },
+ "ingredient" : {
+ "href" : "http://localhost:8080/ingredients/FLTO"
+ }
+ }
+ },
+ ...
+ ]
+ },
+ "_links" : {
+ "self" : {
+ "href" : "http://localhost:8080/ingredients"
+ },
+ "profile" : {
+ "href" : "http://localhost:8080/profile/ingredients"
+ }
+ }
 }
 ```
 
@@ -57,7 +57,7 @@ Spring HATEOAS 项目，为在您的应用程序中添加 Spring MVC 控制器�
 
 >HATEOAS 或者非 HATEOAS？
 >
->HATEOAS 的总体思想是，它使客户机能够在 API 中导航，这与人类浏览网站的方式大致相同：通过跟踪链接。而不是在客户机中编码 API 细节，并让客户机构造对于每个请求的URL。客户端可以从列表中按名称选择链接，并使用它发出下一个请求。这样，客户机就不需要编码以了解 API 的结构就可以使用。API 本身就是浏览 API 的路线图。
+>HATEOAS 的总体思想是，它使客户机能够在 API 中导航，这与人类浏览网站的方式大致相同：通过跟踪链接。而不是在客户机中编码 API 细节，并让客户机构造对于每个请求的 URL。客户端可以从列表中按名称选择链接，并使用它发出下一个请求。这样，客户机就不需要编码以了解 API 的结构就可以使用。API 本身就是浏览 API 的路线图。
 >另一方面，超链接确实会添加少量额外数据，有效负载增加了一些复杂性，要求客户端知道如何使用这些超链接导航。由于这个原因，如果在 API 中没有任何可用的参数，API 开发人员经常放弃 HATEOAS，客户端开发人员通常会忽略超链接。
 >除了从 Spring Data REST 响应中获得的免费超链接，我们将忽略 HATEOAS，重点关注简单的非超媒体 API。
 
@@ -66,16 +66,16 @@ Spring HATEOAS 项目，为在您的应用程序中添加 Spring MVC 控制器�
 ```bash
 $ curl http://localhost:8080/ingredients/FLTO
 {
-  "name" : "Flour Tortilla",
-  "type" : "WRAP",
-  "_links" : {
-    "self" : {
-      "href" : "http://localhost:8080/ingredients/FLTO"
-    },
-    "ingredient" : {
-      "href" : "http://localhost:8080/ingredients/FLTO"
-    }
-  }
+ "name" : "Flour Tortilla",
+ "type" : "WRAP",
+ "_links" : {
+ "self" : {
+ "href" : "http://localhost:8080/ingredients/FLTO"
+ },
+ "ingredient" : {
+ "href" : "http://localhost:8080/ingredients/FLTO"
+ }
+ }
 }
 ```
 
@@ -85,9 +85,9 @@ $ curl http://localhost:8080/ingredients/FLTO
 
 ```yaml
 spring:
-  data:
-    rest:
-      base-path: /api
+ data:
+ rest:
+ base-path: /api
 ```
 
 这将设置 Spring Data REST 端点的基本路径为 `/api`。因此，Ingredient 端点现在是 `/api/ingredients`。现在，通过请求一个 tacos 列表来使用这个新的基本路径：
@@ -95,11 +95,11 @@ spring:
 ```bash
 $ curl http://localhost:8080/data-api/tacos
 {
-  "timestamp": "2018-02-11T16:22:12.381+0000",
-  "status": 404,
-  "error": "Not Found",
-  "message": "No message available",
-  "path": "/api/tacos"
+ "timestamp": "2018-02-11T16:22:12.381+0000",
+ "status": 404,
+ "error": "Not Found",
+ "message": "No message available",
+ "path": "/api/tacos"
 }
 ```
 

@@ -2,7 +2,7 @@
 
 本章内容
 
-* 将 Spring 应用程序构建为 WAR 或  JAR
+* 将 Spring 应用程序构建为 WAR 或 JAR
 * 将 Spring 应用程序推送至 Cloud Foundry
 * 使用 Docker 容器化部署 Spring 应用程序
 
