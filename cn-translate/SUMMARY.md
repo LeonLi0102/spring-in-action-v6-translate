@@ -1,6 +1,6 @@
 # Summary
 
-* [Spring 实战 (第 6 版) MEAP](README.md)
+* [Spring 实战 (第 6 版)](README.md)
 * [欢迎](Welcome.md)
 * [第 1 章 Spring 入门](Chapter-01/Introduction.md)
     * [1.1 什么是 Spring？](Chapter-01/1.1-What-is-Spring.md)
